@@ -2,9 +2,9 @@
 
 An independent React design system extracted from Fieldnotes: forest surfaces, serif headings, accessible controls, and scoped runtime themes. Consumers supply their own application behavior; Fieldnotes is never a dependency.
 
-**Status:** [0.2.0](https://github.com/Bojan-Ivanovski/fieldnotes-ui/releases/tag/v0.2.0) adds core forms, navigation and overlays. See the [release roadmap](docs/roadmap.md). Not published to npm. The package is installable from its verified tarball. npm publication remains locked pending ownership, trust and release approval.
+**Status:** [0.4.0](https://github.com/Bojan-Ivanovski/fieldnotes-ui/releases/tag/v0.4.0) adds workspace, editor, details and settings components. [0.3.0](https://github.com/Bojan-Ivanovski/fieldnotes-ui/releases/tag/v0.3.0) adds resource cards, grouped navigation, search results and async resource trees. See the [release roadmap](docs/roadmap.md). Not published to npm. The package is installable from its verified tarball. npm publication remains locked pending ownership, trust and release approval.
 
-**Unreleased:** The catalog includes the new workspace components. They are not in the v0.2.0 GitHub release; build the current source to try them.
+**Downloads:** Each GitHub release includes its versioned package tarball. Workspace components are available starting with v0.4.0.
 
 ## Try the package
 
@@ -13,7 +13,7 @@ npm ci
 npm run build
 npm pack
 # In a separate React application:
-npm install /path/to/fieldnotes-ui-0.2.0.tgz
+npm install /path/to/fieldnotes-ui-0.4.0.tgz
 ```
 
 After an authorized npm release, use `npm install fieldnotes-ui`. React and ReactDOM 19.3.1 are the tested peer baseline; React 18 support is not claimed. Development tooling requires Node 24+.
@@ -89,4 +89,4 @@ GitHub Actions verifies the package and prepares static docs. Release/version wo
 
 MIT licensed; see [LICENSE](LICENSE) and [dependency notices](THIRD_PARTY_NOTICES.md). [Security policy](SECURITY.md), [code of conduct](CODE_OF_CONDUCT.md), and [contribution guide](CONTRIBUTING.md) apply to this public project.
 
-The unreleased workspace components have individual playgrounds under Storybook Patterns. Packed Vite examples include `/workspace.html`, `/settings.html`, and `/collections.html`; Next examples include `/library` and `/settings`. These are library examples, not a Fieldnotes app migration. Resizing and movement remain under Storybook Prototypes and are not public package APIs. See the [component contracts](docs/components.md) and [collection rendering decision](docs/decisions/resource-collection-rendering.md).
+The 0.4.0 workspace components have individual playgrounds under Storybook Patterns. Packed Vite examples include `/workspace.html`, `/settings.html`, and `/collections.html`; Next examples include `/library` and `/settings`. These are library examples, not a Fieldnotes app migration. Resizing and movement remain under Storybook Prototypes and are not public package APIs. See the [component contracts](docs/components.md) and [collection rendering decision](docs/decisions/resource-collection-rendering.md).
