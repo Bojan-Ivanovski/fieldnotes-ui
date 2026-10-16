@@ -1,13 +1,15 @@
 import type { HTMLAttributes, Ref } from 'react';
-import { cn } from '../../foundations/utilities/cn';
+import { cn } from '../../foundations/utilities/cn.js';
 export function VisuallyHidden({
   className,
   ...props
 }: HTMLAttributes<HTMLSpanElement> & { ref?: Ref<HTMLSpanElement> }) {
   return <span {...props} className={cn('fn-sr-only', className)} />;
 }
-export interface SpinnerProps
-  extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
+export interface SpinnerProps extends Omit<
+  HTMLAttributes<HTMLSpanElement>,
+  'children'
+> {
   ref?: Ref<HTMLSpanElement>;
   label?: string;
 }

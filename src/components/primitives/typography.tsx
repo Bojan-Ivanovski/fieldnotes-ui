@@ -1,5 +1,5 @@
 import { createElement, type HTMLAttributes, type Ref } from 'react';
-import { cn } from '../../foundations/utilities/cn';
+import { cn } from '../../foundations/utilities/cn.js';
 export interface TextProps extends HTMLAttributes<HTMLSpanElement> {
   ref?: Ref<HTMLSpanElement>;
   as?: 'span' | 'p';

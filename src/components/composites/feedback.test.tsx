@@ -1,9 +1,9 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ConfirmDialog } from './confirm-dialog';
-import { EmptyState } from './empty-state';
-import { ThemeSelector } from './theme-selector';
-import { ThemeProvider } from '../../themes';
+import { ConfirmDialog } from './confirm-dialog.js';
+import { EmptyState } from './empty-state.js';
+import { ThemeSelector } from './theme-selector.js';
+import { ThemeProvider } from '../../themes/index.js';
 it('keeps failed confirmations open and closes successful retries', async () => {
   const confirm = vi
     .fn()

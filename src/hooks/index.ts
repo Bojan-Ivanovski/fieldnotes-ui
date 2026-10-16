@@ -1,1 +1,1 @@
-export { useTheme } from '../themes/theme-provider';
+export { useTheme } from '../themes/theme-provider.js';

@@ -5,16 +5,16 @@ import {
   type ReactNode,
 } from 'react';
 import { Menu } from 'lucide-react';
-import { cn } from '../../foundations/utilities/cn';
+import { cn } from '../../foundations/utilities/cn.js';
 import {
   Dialog,
   DialogTrigger,
   DialogContent,
   DialogTitle,
   DialogDescription,
-} from '../core/dialog/dialog';
-import { IconButton } from '../core/button/button';
-import { VisuallyHidden } from '../primitives/feedback';
+} from '../core/dialog/dialog.js';
+import { IconButton } from '../core/button/button.js';
+import { VisuallyHidden } from '../primitives/feedback.js';
 export interface SidebarProps extends ComponentPropsWithRef<'aside'> {
   label: string;
   header?: ReactNode;

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ResourceExplorer } from './resource-explorer';
+import { ResourceExplorer } from './resource-explorer.js';
 const meta = {
   title: 'Patterns/ResourceExplorer',
   component: ResourceExplorer,

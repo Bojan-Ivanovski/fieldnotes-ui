@@ -5,7 +5,7 @@ import {
   Text,
   Spinner,
   VisuallyHidden,
-} from '../../primitives';
+} from '../../primitives/index.js';
 const meta = {
   title: 'Primitives/Stack',
   component: Stack,

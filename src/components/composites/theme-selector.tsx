@@ -1,11 +1,10 @@
 import type { ComponentPropsWithRef } from 'react';
-import { useTheme } from '../../themes/theme-provider';
-import { Field, Select } from '../core/forms/controls';
-export interface ThemeSelectorProps
-  extends Omit<
-    ComponentPropsWithRef<'select'>,
-    'value' | 'defaultValue' | 'onChange' | 'children'
-  > {
+import { useTheme } from '../../themes/theme-provider.js';
+import { Field, Select } from '../core/forms/controls.js';
+export interface ThemeSelectorProps extends Omit<
+  ComponentPropsWithRef<'select'>,
+  'value' | 'defaultValue' | 'onChange' | 'children'
+> {
   label?: string;
   includeSystem?: boolean;
 }

@@ -1,9 +1,11 @@
 import type { ComponentPropsWithRef, ReactNode } from 'react';
-import { cn } from '../../foundations/utilities/cn';
-import { Heading, Text } from '../primitives/typography';
-import { Stack } from '../primitives/layout';
-export interface EmptyStateProps
-  extends Omit<ComponentPropsWithRef<'div'>, 'title'> {
+import { cn } from '../../foundations/utilities/cn.js';
+import { Heading, Text } from '../primitives/typography.js';
+import { Stack } from '../primitives/layout.js';
+export interface EmptyStateProps extends Omit<
+  ComponentPropsWithRef<'div'>,
+  'title'
+> {
   title: ReactNode;
   description?: ReactNode;
   icon?: ReactNode;

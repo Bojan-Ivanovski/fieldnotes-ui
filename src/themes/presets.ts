@@ -1,5 +1,5 @@
 import presets from '../foundations/tokens/presets.json';
-import type { CustomTheme, ThemeDefinition } from './theme.types';
+import type { CustomTheme, ThemeDefinition } from './theme.types.js';
 export const builtInThemes: readonly ThemeDefinition[] = Object.entries(
   presets,
 ).map(([name, value]) => ({

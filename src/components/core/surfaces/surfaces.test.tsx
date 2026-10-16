@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Card, Badge, Alert } from './surfaces';
+import { Card, Badge, Alert } from './surfaces.js';
 it('supports named semantic cards and consumer-selected urgency', () => {
   render(
     <Card aria-labelledby="title">

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { SearchField } from './search-field';
+import { SearchField } from './search-field.js';
 it('edits and clears uncontrolled search while retaining input focus', async () => {
   const change = vi.fn();
   render(

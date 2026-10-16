@@ -1,8 +1,13 @@
 import * as Primitive from '@radix-ui/react-dropdown-menu';
 import type { ComponentPropsWithRef } from 'react';
-import { cn } from '../../../foundations/utilities/cn';
-import { useThemeContainer } from '../../../themes/theme-provider';
-export const DropdownMenu = Primitive.Root;
+import { cn } from '../../../foundations/utilities/cn.js';
+import { useThemeContainer } from '../../../themes/theme-provider.js';
+export function DropdownMenu({
+  modal = false,
+  ...props
+}: React.ComponentProps<typeof Primitive.Root>) {
+  return <Primitive.Root {...props} modal={modal} />;
+}
 export const DropdownMenuTrigger = Primitive.Trigger;
 export function DropdownMenuContent({
   className,
@@ -20,8 +25,9 @@ export function DropdownMenuContent({
     </Primitive.Portal>
   );
 }
-export interface DropdownMenuItemProps
-  extends ComponentPropsWithRef<typeof Primitive.Item> {
+export interface DropdownMenuItemProps extends ComponentPropsWithRef<
+  typeof Primitive.Item
+> {
   destructive?: boolean;
 }
 export function DropdownMenuItem({

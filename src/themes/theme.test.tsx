@@ -1,8 +1,8 @@
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderToString } from 'react-dom/server';
-import { builtInThemes, defineTheme } from './presets';
-import { ThemeProvider, useTheme } from './theme-provider';
+import { builtInThemes, defineTheme } from './presets.js';
+import { ThemeProvider, useTheme } from './theme-provider.js';
 
 function Switcher() {
   const { theme, resolvedTheme, setTheme } = useTheme();

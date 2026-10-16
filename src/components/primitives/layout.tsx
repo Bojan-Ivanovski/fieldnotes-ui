@@ -1,5 +1,5 @@
 import type { HTMLAttributes } from 'react';
-import { cn } from '../../foundations/utilities/cn';
+import { cn } from '../../foundations/utilities/cn.js';
 export interface StackProps extends HTMLAttributes<HTMLDivElement> {
   ref?: React.Ref<HTMLDivElement>;
   direction?: 'vertical' | 'horizontal';

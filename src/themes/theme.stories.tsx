@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ThemeProvider, useTheme } from './theme-provider';
-import { defineTheme } from './presets';
+import { ThemeProvider, useTheme } from './theme-provider.js';
+import { defineTheme } from './presets.js';
 const meta = {
   title: 'Foundations/Themes',
   component: ThemeProvider,

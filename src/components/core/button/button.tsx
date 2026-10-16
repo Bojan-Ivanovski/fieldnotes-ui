@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { ComponentPropsWithRef } from 'react';
-import { cn } from '../../../foundations/utilities/cn';
-import { Spinner } from '../../primitives/feedback';
+import { cn } from '../../../foundations/utilities/cn.js';
+import { Spinner } from '../../primitives/feedback.js';
 export const buttonVariants = cva('fn-control fn-button', {
   variants: {
     variant: {
@@ -16,8 +16,7 @@ export const buttonVariants = cva('fn-control fn-button', {
   defaultVariants: { variant: 'primary', size: 'md' },
 });
 export interface ButtonProps
-  extends ComponentPropsWithRef<'button'>,
-    VariantProps<typeof buttonVariants> {
+  extends ComponentPropsWithRef<'button'>, VariantProps<typeof buttonVariants> {
   loading?: boolean;
   loadingLabel?: string;
 }

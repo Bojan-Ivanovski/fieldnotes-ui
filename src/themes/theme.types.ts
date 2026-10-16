@@ -1,8 +1,38 @@
-import presets from '../foundations/tokens/presets.json';
-export type BuiltInThemeName = keyof typeof presets;
-export type ThemeTokens = {
-  [Key in keyof (typeof presets)['fieldnotes-dark']['tokens']]: string;
-};
+export type BuiltInThemeName =
+  | 'fieldnotes-dark'
+  | 'fieldnotes-light'
+  | 'midnight'
+  | 'ocean'
+  | 'forest'
+  | 'warm'
+  | 'high-contrast';
+export interface ThemeTokens {
+  background: string;
+  foreground: string;
+  card: string;
+  'card-foreground': string;
+  popover: string;
+  'popover-foreground': string;
+  primary: string;
+  'primary-foreground': string;
+  'primary-hover': string;
+  secondary: string;
+  'secondary-foreground': string;
+  muted: string;
+  'muted-foreground': string;
+  accent: string;
+  'accent-foreground': string;
+  destructive: string;
+  'destructive-foreground': string;
+  border: string;
+  input: string;
+  'input-background': string;
+  ring: string;
+  success: string;
+  'success-foreground': string;
+  warning: string;
+  'warning-foreground': string;
+}
 export type ThemeDefinition = {
   name: string;
   colorScheme: 'light' | 'dark';

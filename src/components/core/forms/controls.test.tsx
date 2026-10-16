@@ -1,7 +1,7 @@
 import { createRef, useState } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Input, Textarea, Select, Checkbox, Radio, Field } from './controls';
+import { Input, Textarea, Select, Checkbox, Radio, Field } from './controls.js';
 it('associates unique labels, descriptions and announced errors', () => {
   render(
     <>

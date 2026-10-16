@@ -1,6 +1,6 @@
 import * as Primitive from '@radix-ui/react-tabs';
 import type { ComponentPropsWithRef } from 'react';
-import { cn } from '../../../foundations/utilities/cn';
+import { cn } from '../../../foundations/utilities/cn.js';
 export const Tabs = Primitive.Root;
 export function TabsList({
   className,

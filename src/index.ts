@@ -1,7 +1,6 @@
-import './styles/index.css';
-export { version } from './version';
-export * from './themes';
-export * from './primitives';
-export * from './core';
-export * from './composites';
-export * from './patterns';
+export { version } from './version.js';
+export * from './themes/index.js';
+export * from './primitives/index.js';
+export * from './core/index.js';
+export * from './composites/index.js';
+export * from './patterns/index.js';

@@ -1,10 +1,10 @@
-export { ThemeProvider, useTheme } from './theme-provider';
-export type { ThemeProviderProps } from './theme-provider';
-export { builtInThemes, defineTheme } from './presets';
+export { ThemeProvider, useTheme } from './theme-provider.js';
+export type { ThemeProviderProps } from './theme-provider.js';
+export { builtInThemes, defineTheme } from './presets.js';
 export type {
   ThemeTokens,
   ThemeDefinition,
   CustomTheme,
   ThemeStorage,
   BuiltInThemeName,
-} from './theme.types';
+} from './theme.types.js';

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Card, Badge, Alert } from './surfaces';
-import { Heading, Text } from '../../primitives/typography';
-import { Stack } from '../../primitives/layout';
+import { Card, Badge, Alert } from './surfaces.js';
+import { Heading, Text } from '../../primitives/typography.js';
+import { Stack } from '../../primitives/layout.js';
 const meta = {
   title: 'Core/Card',
   component: Card,

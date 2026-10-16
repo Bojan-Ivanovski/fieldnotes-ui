@@ -15,11 +15,12 @@ export default defineConfig({
           'patterns',
           'themes',
           'hooks',
+          'styles-entry',
         ].map((name) => [
           name,
           resolve(
             import.meta.dirname,
-            `src/${name === 'index' ? name : name + '/index'}.ts`,
+            `src/${['index', 'styles-entry'].includes(name) ? name : name + '/index'}.ts`,
           ),
         ]),
       ),

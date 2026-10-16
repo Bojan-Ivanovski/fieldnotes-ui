@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Field, Input, Textarea, Select, Checkbox, Radio } from './controls';
-import { Stack } from '../../primitives/layout';
+import { Field, Input, Textarea, Select, Checkbox, Radio } from './controls.js';
+import { Stack } from '../../primitives/layout.js';
 const meta = {
   title: 'Core/Field',
   component: Field,

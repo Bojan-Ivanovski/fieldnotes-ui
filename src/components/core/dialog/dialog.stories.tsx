@@ -6,10 +6,10 @@ import {
   DialogTitle,
   DialogDescription,
   DialogClose,
-} from './dialog';
-import { Button } from '../button/button';
-import { Field, Input } from '../forms/controls';
-import { Stack } from '../../primitives/layout';
+} from './dialog.js';
+import { Button } from '../button/button.js';
+import { Field, Input } from '../forms/controls.js';
+import { Stack } from '../../primitives/layout.js';
 const meta = {
   title: 'Core/Dialog',
   component: Dialog,

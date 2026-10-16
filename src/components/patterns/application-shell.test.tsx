@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ApplicationShell, Sidebar } from './application-shell';
+import { ApplicationShell, Sidebar } from './application-shell.js';
 it('provides responsive navigation through a modal with focus restoration', async () => {
   vi.stubGlobal(
     'matchMedia',

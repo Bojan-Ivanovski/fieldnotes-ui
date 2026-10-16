@@ -1,14 +1,15 @@
 import * as Primitive from '@radix-ui/react-dialog';
 import { X } from 'lucide-react';
 import type { ComponentPropsWithRef } from 'react';
-import { cn } from '../../../foundations/utilities/cn';
-import { useThemeContainer } from '../../../themes/theme-provider';
-import { IconButton } from '../button/button';
+import { cn } from '../../../foundations/utilities/cn.js';
+import { useThemeContainer } from '../../../themes/theme-provider.js';
+import { IconButton } from '../button/button.js';
 export const Dialog = Primitive.Root;
 export const DialogTrigger = Primitive.Trigger;
 export const DialogClose = Primitive.Close;
-export interface DialogContentProps
-  extends ComponentPropsWithRef<typeof Primitive.Content> {
+export interface DialogContentProps extends ComponentPropsWithRef<
+  typeof Primitive.Content
+> {
   closeLabel?: string;
   showClose?: boolean;
 }

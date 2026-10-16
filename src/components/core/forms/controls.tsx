@@ -1,5 +1,5 @@
 import { useId, type ComponentPropsWithRef, type ReactNode } from 'react';
-import { cn } from '../../../foundations/utilities/cn';
+import { cn } from '../../../foundations/utilities/cn.js';
 export function Input({ className, ...props }: ComponentPropsWithRef<'input'>) {
   return <input {...props} className={cn('fn-control fn-input', className)} />;
 }
@@ -54,8 +54,10 @@ export interface FieldControlProps {
   'aria-describedby'?: string;
   'aria-invalid'?: true;
 }
-export interface FieldProps
-  extends Omit<ComponentPropsWithRef<'div'>, 'children'> {
+export interface FieldProps extends Omit<
+  ComponentPropsWithRef<'div'>,
+  'children'
+> {
   label: ReactNode;
   description?: ReactNode;
   error?: ReactNode;

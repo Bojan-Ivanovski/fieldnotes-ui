@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs.js';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from './dropdown-menu';
+} from './dropdown-menu.js';
 it('navigates tabs with arrows and skips disabled choices', async () => {
   render(
     <Tabs defaultValue="write">

@@ -1,15 +1,15 @@
 import { useRef, useState, type ReactNode } from 'react';
-import { useControlled } from '../../foundations/utilities/use-controlled';
+import { useControlled } from '../../foundations/utilities/use-controlled.js';
 import {
   Dialog,
   DialogTrigger,
   DialogContent,
   DialogTitle,
   DialogDescription,
-} from '../core/dialog/dialog';
-import { Button } from '../core/button/button';
-import { Alert } from '../core/surfaces/surfaces';
-import { Stack } from '../primitives/layout';
+} from '../core/dialog/dialog.js';
+import { Button } from '../core/button/button.js';
+import { Alert } from '../core/surfaces/surfaces.js';
+import { Stack } from '../primitives/layout.js';
 export interface ConfirmDialogProps {
   title: string;
   description: string;

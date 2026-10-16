@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ResourceExplorer, type ResourceItem } from './resource-explorer';
+import { ResourceExplorer, type ResourceItem } from './resource-explorer.js';
 const items: ResourceItem[] = [
   {
     id: 'folder',
@@ -30,6 +30,8 @@ it('expands, navigates parent/child, selects and collapses by keyboard', async (
   );
   await userEvent.keyboard('{Enter}');
   expect(select).toHaveBeenCalledWith('alpha');
+  await userEvent.keyboard('{ArrowRight}');
+  expect(screen.getByRole('treeitem', { name: 'Alpha' })).toHaveFocus();
   expect(screen.getByRole('treeitem', { name: 'Alpha' })).toHaveAttribute(
     'aria-selected',
     'true',
@@ -94,5 +96,9 @@ it('supports controlled selection/expansion and fresh data after updates', async
   expect(screen.getByRole('treeitem', { name: 'New item' })).toHaveAttribute(
     'aria-selected',
     'true',
+  );
+  expect(screen.getByRole('treeitem', { name: 'New item' })).toHaveAttribute(
+    'tabindex',
+    '0',
   );
 });

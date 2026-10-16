@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs.js';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-} from './dropdown-menu';
-import { Button } from '../button/button';
+} from './dropdown-menu.js';
+import { Button } from '../button/button.js';
 const meta = {
   title: 'Core/Tabs',
   component: Tabs,

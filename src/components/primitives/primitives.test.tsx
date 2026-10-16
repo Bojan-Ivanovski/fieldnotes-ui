@@ -6,7 +6,7 @@ import {
   Stack,
   Text,
   VisuallyHidden,
-} from '../../primitives';
+} from '../../primitives/index.js';
 it('preserves heading semantics and forwards refs and native attributes', () => {
   const ref = createRef<HTMLHeadingElement>();
   render(

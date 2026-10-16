@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ApplicationShell, Sidebar } from './application-shell';
-import { Heading, Text } from '../primitives/typography';
-import { Button } from '../core/button/button';
+import { ApplicationShell, Sidebar } from './application-shell.js';
+import { Heading, Text } from '../primitives/typography.js';
+import { Button } from '../core/button/button.js';
 const meta = {
   title: 'Patterns/ApplicationShell',
   component: ApplicationShell,

@@ -1,14 +1,14 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ThemeProvider } from '../../../themes';
-import { Button } from '../button/button';
+import { ThemeProvider } from '../../../themes/index.js';
+import { Button } from '../button/button.js';
 import {
   Dialog,
   DialogTrigger,
   DialogContent,
   DialogTitle,
   DialogDescription,
-} from './dialog';
+} from './dialog.js';
 it('names, focuses, dismisses and restores focus within a nested theme', async () => {
   render(
     <ThemeProvider>

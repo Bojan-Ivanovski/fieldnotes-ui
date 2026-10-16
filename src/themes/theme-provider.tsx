@@ -8,8 +8,8 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from 'react';
-import { builtInThemes } from './presets';
-import type { ThemeDefinition, ThemeStorage } from './theme.types';
+import { builtInThemes } from './presets.js';
+import type { ThemeDefinition, ThemeStorage } from './theme.types.js';
 interface ThemeContextValue {
   theme: string;
   resolvedTheme: ThemeDefinition;
@@ -19,8 +19,10 @@ interface ThemeContextValue {
 }
 const emptyThemes: readonly ThemeDefinition[] = [];
 const ThemeContext = createContext<ThemeContextValue | null>(null);
-export interface ThemeProviderProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
+export interface ThemeProviderProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  'onChange'
+> {
   children: ReactNode;
   defaultTheme?: string;
   theme?: string;

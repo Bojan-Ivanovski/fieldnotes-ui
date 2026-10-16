@@ -9,8 +9,8 @@ import {
 import { useTree } from '@headless-tree/react';
 import { hotkeysCoreFeature, syncDataLoaderFeature } from '@headless-tree/core';
 import { ChevronDown, ChevronRight, FileText, Folder } from 'lucide-react';
-import { cn } from '../../foundations/utilities/cn';
-import { useControlled } from '../../foundations/utilities/use-controlled';
+import { cn } from '../../foundations/utilities/cn.js';
+import { useControlled } from '../../foundations/utilities/use-controlled.js';
 export interface ResourceItem {
   id: string;
   label: string;
@@ -18,8 +18,10 @@ export interface ResourceItem {
   disabled?: boolean;
   icon?: ReactNode;
 }
-export interface ResourceExplorerProps
-  extends Omit<ComponentPropsWithRef<'div'>, 'onSelect' | 'children'> {
+export interface ResourceExplorerProps extends Omit<
+  ComponentPropsWithRef<'div'>,
+  'onSelect' | 'children'
+> {
   label: string;
   items: readonly ResourceItem[];
   selectedId?: string | null;
@@ -102,7 +104,21 @@ export function ResourceExplorer({
         preventDefault: true,
         handler: (_event, tree) => tree.getFocusedItem()?.primaryAction(),
       },
-      expandOrDown: { hotkey: 'ArrowRight', preventDefault: true },
+      expandOrDown: {
+        hotkey: 'ArrowRight',
+        preventDefault: true,
+        handler: (_event, tree) => {
+          const item = tree.getFocusedItem();
+          if (!item?.isFolder()) return;
+          if (item.isExpanded()) {
+            const child = item.getChildren()[0];
+            if (child) {
+              child.setFocused();
+              tree.updateDomFocus();
+            }
+          } else item.expand();
+        },
+      },
       collapseOrUp: { hotkey: 'ArrowLeft', preventDefault: true },
       focusFirstItem: { hotkey: 'Home', preventDefault: true },
       focusLastItem: { hotkey: 'End', preventDefault: true },
@@ -111,7 +127,12 @@ export function ResourceExplorer({
   });
   useEffect(() => {
     tree.rebuildTree();
-  }, [records, tree]);
+    const visible = tree.getItems();
+    if (visible.length && !visible.some((item) => item.isFocused()))
+      (
+        visible.find((item) => item.getId() === selected) ?? visible[0]
+      ).setFocused();
+  }, [records, tree, expanded, selected]);
   const register = useCallback(
     (node: HTMLDivElement | null) => {
       tree.registerElement(node);

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { EmptyState } from './empty-state';
-import { ConfirmDialog } from './confirm-dialog';
-import { ThemeSelector } from './theme-selector';
-import { Button } from '../core/button/button';
+import { EmptyState } from './empty-state.js';
+import { ConfirmDialog } from './confirm-dialog.js';
+import { ThemeSelector } from './theme-selector.js';
+import { Button } from '../core/button/button.js';
 const meta = {
   title: 'Composites/EmptyState',
   component: EmptyState,

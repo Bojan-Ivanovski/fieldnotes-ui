@@ -1,7 +1,7 @@
 import { createRef } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Button, IconButton } from './button';
+import { Button, IconButton } from './button.js';
 it('preserves native keyboard activation and ref with a safe form default', async () => {
   const click = vi.fn(),
     submit = vi.fn((e) => e.preventDefault()),

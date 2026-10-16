@@ -1,15 +1,14 @@
 import { useId, useRef, type ComponentPropsWithRef } from 'react';
 import { Search, X } from 'lucide-react';
-import { Input } from '../core/forms/controls';
-import { IconButton } from '../core/button/button';
-import { Spinner, VisuallyHidden } from '../primitives/feedback';
-import { cn } from '../../foundations/utilities/cn';
-import { useControlled } from '../../foundations/utilities/use-controlled';
-export interface SearchFieldProps
-  extends Omit<
-    ComponentPropsWithRef<'input'>,
-    'value' | 'defaultValue' | 'onChange' | 'type' | 'children'
-  > {
+import { Input } from '../core/forms/controls.js';
+import { IconButton } from '../core/button/button.js';
+import { Spinner, VisuallyHidden } from '../primitives/feedback.js';
+import { cn } from '../../foundations/utilities/cn.js';
+import { useControlled } from '../../foundations/utilities/use-controlled.js';
+export interface SearchFieldProps extends Omit<
+  ComponentPropsWithRef<'input'>,
+  'value' | 'defaultValue' | 'onChange' | 'type' | 'children'
+> {
   label: string;
   value?: string;
   defaultValue?: string;
