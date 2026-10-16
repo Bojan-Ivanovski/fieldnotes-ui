@@ -10,10 +10,7 @@
     "representative": {
       "loaded": 1000,
       "visible": 1000,
-      "shapes": [
-        "flat",
-        "nested"
-      ],
+      "shapes": ["flat", "nested"],
       "expansion": "all"
     },
     "p95BudgetsMs": {
@@ -23,10 +20,7 @@
     },
     "stress": {
       "loaded": 10000,
-      "expansion": [
-        "partial",
-        "all"
-      ]
+      "expansion": ["partial", "all"]
     }
   },
   "environment": {
