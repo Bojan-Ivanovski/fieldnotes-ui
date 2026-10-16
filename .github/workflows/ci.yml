@@ -29,19 +29,19 @@ jobs:
       - run: npm run build-storybook
       - run: npm run test:consumers
       - run: npm run test:browser
-      - name: Upload a package file to check artifact compatibility
+      - name: Upload the tested package
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
-          name: artifact-compatibility
-          path: dist/version.js
+          name: verified-package
+          path: artifacts/fieldnotes-ui.tgz
           retention-days: 1
       - name: Download the same file with the release downloader
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
-          name: artifact-compatibility
-          path: ${{ runner.temp }}/artifact-compatibility
+          name: verified-package
+          path: ${{ runner.temp }}/verified-package
       - name: Verify the downloaded bytes
-        run: cmp dist/version.js "$RUNNER_TEMP/artifact-compatibility/version.js"
+        run: cmp artifacts/fieldnotes-ui.tgz "$RUNNER_TEMP/verified-package/fieldnotes-ui.tgz"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         if: failure()
         with:
