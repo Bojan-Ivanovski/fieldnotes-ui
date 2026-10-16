@@ -1,0 +1,30 @@
+.fn-theme {
+  font-family: var(--fn-font-sans);
+  color: var(--fn-foreground);
+  background: var(--fn-background);
+  color-scheme: dark;
+}
+/* Reset only owned elements; never the consumer document or arbitrary descendants. */
+.fn-control {
+  box-sizing: border-box;
+  font-family: var(--fn-font-sans);
+  font-size: var(--fn-text-md);
+  line-height: 1.5;
+  color: var(--fn-foreground);
+}
+.fn-control:focus-visible {
+  outline: 2px solid var(--fn-ring);
+  outline-offset: 3px;
+}
+.fn-control:disabled,
+.fn-control[data-disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fn-control,
+  .fn-spinner {
+    animation: none;
+    transition: none;
+  }
+}
