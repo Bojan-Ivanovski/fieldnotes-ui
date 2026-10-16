@@ -544,7 +544,7 @@ function Content() {
                     actions={
                       <Button
                         variant="secondary"
-                        aria-label={`${favorites.has(item.id) ? 'Remove' : 'Add'} ${item.title} ${favorites.has(item.id) ? 'from' : 'to'} favorites`}
+                        aria-label={`${favorites.has(item.id) ? 'Unfavorite' : 'Favorite'} ${item.title}`}
                         aria-pressed={favorites.has(item.id)}
                         onClick={(event) =>
                           toggleFavorite(item.id, event.currentTarget)
@@ -714,6 +714,7 @@ function Content() {
                     <Textarea
                       ref={documentEditor}
                       aria-label="Document content"
+                      readOnly={readOnly}
                       value={documentBody}
                       onChange={(event) => {
                         const next = {

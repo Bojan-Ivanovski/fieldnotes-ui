@@ -16,6 +16,30 @@ function controls(container: HTMLElement) {
       element.tabIndex >= 0,
   );
 }
+function controlLabel(element: HTMLElement) {
+  const explicit = element.getAttribute('aria-label');
+  if (explicit) return explicit;
+  const labelledBy = element.getAttribute('aria-labelledby');
+  if (labelledBy)
+    return labelledBy
+      .split(/\s+/)
+      .map(
+        (id) =>
+          element.ownerDocument.getElementById(id)?.textContent?.trim() ?? '',
+      )
+      .join(' ');
+  if (
+    element instanceof HTMLInputElement ||
+    element instanceof HTMLTextAreaElement ||
+    element instanceof HTMLSelectElement
+  )
+    return (
+      Array.from(element.labels ?? [])
+        .map((label) => label.textContent?.trim() ?? '')
+        .join(' ') || null
+    );
+  return null;
+}
 export function captureContainedFocus(
   container: HTMLElement | null,
   focused?: Element | null,
@@ -30,7 +54,7 @@ export function captureContainedFocus(
   return {
     id: active.id,
     name: active.getAttribute('name'),
-    label: active.getAttribute('aria-label'),
+    label: controlLabel(active),
     tag: active.tagName,
     index: controls(container).indexOf(active),
     selection:
@@ -58,7 +82,7 @@ export function restoreContainedFocus(
       elements.find(
         (element) =>
           element.tagName === previous.tag &&
-          element.getAttribute('aria-label') === previous.label,
+          controlLabel(element) === previous.label,
       )) ||
     elements[previous.index] ||
     elements[0];
