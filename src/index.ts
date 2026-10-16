@@ -4,3 +4,4 @@ export * from './themes';
 export * from './primitives';
 export * from './core';
 export * from './composites';
+export * from './patterns';
