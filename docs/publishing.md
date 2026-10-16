@@ -9,7 +9,7 @@ No npm package has been published during extraction. `fieldnotes-ui` returned re
 - Configure a GitHub `npm-publish` environment with required reviewers and main-only deployment branches. The YAML environment name alone does not create an approval policy.
 - Configure npm trusted publishing for owner Bojan-Ivanovski, repository fieldnotes-ui, workflow release.yml and environment npm-publish. npm requires Node ≥22.14 and npm ≥11.5.1; this workflow uses Node 24. See https://docs.npmjs.com/trusted-publishers/.
 - For a brand-new package, establish npm-side package ownership using the account's supported bootstrap/trust process. A maintainer may need to create the initial package/trusted-publisher relationship interactively. Do not invent a successful bootstrap or add a long-lived token as a shortcut. The prepared workflow cannot establish ownership by itself.
-- After those checks and explicit release authorization, review a PR changing `private: true` to false and adding `publishConfig: { access: 'public' }`. Keep the publication lock until then.
+- After those checks and explicit release authorization, review a PR changing `private: true` to false. The intended public access is already declared in publishConfig; it does not bypass the private publication lock. Keep the publication lock until then.
 - Require passing CI, review the actual tarball contents, and verify the intended version/changelog. Verify Node/npm versions in the runner before enabling publishing. Set Actions permission to create PRs for Changesets version preparation if desired.
 
 ## Version preparation and publication

@@ -45,7 +45,7 @@ These tests establish initial publication preparation, not a certification of fu
 
 [PR #1](https://github.com/Bojan-Ivanovski/fieldnotes-ui/pull/1) is the integration record. The extraction preserves meaningful component and infrastructure commits; CI is required before merging. The main and extraction branches have been pushed. This report records the implementation commits below; documentation, follow-up and integration commits appear in the [complete history](https://github.com/Bojan-Ivanovski/fieldnotes-ui/commits/main).
 
-Initial extraction and follow-up branches created: `chore/initial-setup`, `ci/release-preparation`, `docs/public-maintenance`, `feat/application-shell`, `feat/composite-feedback`, `feat/core-button`, `feat/core-surfaces`, `feat/dialog`, `feat/form-controls`, `feat/navigation-controls`, `feat/primitives`, `feat/resource-explorer`, `feat/search-field`, `feat/theme-engine`, `main`, `test/package-consumption`, `fix/mobile-dialog-semantics`.
+Initial extraction and follow-up branches created: `chore/initial-setup`, `ci/release-preparation`, `docs/public-maintenance`, `feat/application-shell`, `feat/composite-feedback`, `feat/core-button`, `feat/core-surfaces`, `feat/dialog`, `feat/form-controls`, `feat/navigation-controls`, `feat/primitives`, `feat/resource-explorer`, `feat/search-field`, `feat/theme-engine`, `main`, `test/package-consumption`, `fix/mobile-dialog-semantics`, `build/public-package-metadata`.
 
 | Commit    | Change                                                                              |
 | --------- | ----------------------------------------------------------------------------------- |
@@ -70,7 +70,7 @@ Initial extraction and follow-up branches created: `chore/initial-setup`, `ci/re
 ## Publishing
 
 - Package name: `fieldnotes-ui`; version: `0.1.0`, unpublished extraction checkpoint. Initial Changesets version preparation produces a reviewed 0.1.1 candidate unless the maintainer deliberately chooses another 0.x plan.
-- Package build and actual tarball installation are verified. `private: true` intentionally locks publication.
+- Package build and actual tarball installation are verified. `publishConfig.access=public` declares the intended distribution, while `private: true` intentionally locks publication.
 - Registry lookup returned 404 on 2026-10-16, which does not reserve the name. Local `npm whoami` returned ENEEDAUTH, so npm ownership is not verified.
 - OIDC publication workflow is manual-only, defaults to verification, and separates tested-artifact generation from protected publication. No ordinary push publishes. No long-lived npm token is configured.
 - Remaining external setup: npm account/package ownership, final name, trusted-publisher relationship, protected npm-publish environment/reviewers, reviewed publication unlock, passing release checks and explicit publication authorization. See [publishing.md](publishing.md).
