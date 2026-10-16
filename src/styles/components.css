@@ -13,8 +13,8 @@
   color: var(--fn-foreground);
 }
 .fn-control:focus-visible {
-  outline: 2px solid var(--fn-ring);
-  outline-offset: 3px;
+  outline: var(--fn-focus-width) solid var(--fn-ring);
+  outline-offset: var(--fn-focus-offset);
 }
 .fn-control:disabled,
 .fn-control[data-disabled] {
@@ -83,9 +83,9 @@
 .fn-button {
   @apply inline-flex items-center justify-center;
   gap: var(--fn-space-2);
-  border: 1px solid transparent;
+  border: var(--fn-border-width) solid transparent;
   border-radius: var(--fn-radius-md);
-  font-weight: 650;
+  font-weight: var(--fn-font-weight-strong);
   cursor: pointer;
   text-decoration: none;
   white-space: nowrap;
@@ -158,7 +158,7 @@
   @apply block w-full;
   min-width: 0;
   box-sizing: border-box;
-  border: 1px solid var(--fn-input);
+  border: var(--fn-border-width) solid var(--fn-input);
   border-radius: var(--fn-radius-sm);
   background: var(--fn-input-background);
   color: var(--fn-foreground);
@@ -191,7 +191,7 @@
   @apply block;
   font-family: var(--fn-font-sans);
   font-size: var(--fn-text-sm);
-  font-weight: 650;
+  font-weight: var(--fn-font-weight-strong);
   color: var(--fn-secondary-foreground);
 }
 .fn-description,
@@ -212,7 +212,7 @@
   @apply block;
   box-sizing: border-box;
   min-width: 0;
-  border: 1px solid var(--fn-border);
+  border: var(--fn-border-width) solid var(--fn-border);
   border-radius: 8px;
   background: var(--fn-card);
   color: var(--fn-card-foreground);
@@ -233,7 +233,7 @@
 }
 .fn-alert {
   padding: 12px 16px;
-  border: 1px solid var(--fn-border);
+  border: var(--fn-border-width) solid var(--fn-border);
   border-radius: var(--fn-radius-md);
   font-family: var(--fn-font-sans);
   font-size: var(--fn-text-md);
@@ -260,7 +260,7 @@
   position: fixed;
   inset: 0;
   z-index: var(--fn-z-overlay);
-  background: #0009;
+  background: var(--fn-overlay);
   backdrop-filter: blur(5px);
 }
 .fn-dialog-content {
@@ -275,7 +275,7 @@
   max-height: calc(100dvh - 40px);
   overflow-y: auto;
   padding: 34px;
-  border: 1px solid var(--fn-input);
+  border: var(--fn-border-width) solid var(--fn-input);
   border-radius: var(--fn-radius-lg);
   background: var(--fn-popover);
   color: var(--fn-popover-foreground);
@@ -319,7 +319,7 @@
   box-sizing: border-box;
   background: var(--fn-popover);
   color: var(--fn-popover-foreground);
-  border: 1px solid var(--fn-input);
+  border: var(--fn-border-width) solid var(--fn-input);
   border-radius: 7px;
   padding: 6px;
   box-shadow: var(--fn-shadow-overlay);
@@ -342,7 +342,7 @@
   color: var(--fn-destructive-foreground);
 }
 .fn-menu-item[data-destructive][data-highlighted] {
-  outline: 2px solid var(--fn-ring);
+  outline: var(--fn-focus-width) solid var(--fn-ring);
   outline-offset: -2px;
 }
 .fn-menu-separator {
@@ -355,7 +355,7 @@
   box-sizing: border-box;
   gap: 10px;
   padding: 4px 12px;
-  border: 1px solid var(--fn-input);
+  border: var(--fn-border-width) solid var(--fn-input);
   border-radius: var(--fn-radius-md);
   background: var(--fn-card);
   color: var(--fn-muted-foreground);
@@ -370,8 +370,8 @@
   appearance: none;
 }
 .fn-search-field:focus-within {
-  outline: 2px solid var(--fn-ring);
-  outline-offset: 3px;
+  outline: var(--fn-focus-width) solid var(--fn-ring);
+  outline-offset: var(--fn-focus-offset);
 }
 .fn-search-field .fn-input:focus-visible {
   outline: none;

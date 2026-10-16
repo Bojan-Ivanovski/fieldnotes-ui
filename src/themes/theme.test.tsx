@@ -157,3 +157,21 @@ for (const preset of builtInThemes)
       ).toBeGreaterThanOrEqual(4.5);
     }
   });
+
+for (const preset of builtInThemes)
+  it(`${preset.name} provides a 3:1 visible focus ring against surfaces`, () => {
+    for (const surface of [
+      preset.tokens.background,
+      preset.tokens.card,
+      preset.tokens.popover,
+    ]) {
+      const [light, dark] = [
+        luminance(preset.tokens.ring),
+        luminance(surface),
+      ].sort((a, b) => b - a);
+      expect(
+        (light + 0.05) / (dark + 0.05),
+        `${preset.tokens.ring} on ${surface}`,
+      ).toBeGreaterThanOrEqual(3);
+    }
+  });

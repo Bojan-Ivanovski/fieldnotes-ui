@@ -26,7 +26,8 @@
       "success": "#233c27",
       "success-foreground": "#b6e0b1",
       "warning": "#42381e",
-      "warning-foreground": "#f0d28e"
+      "warning-foreground": "#f0d28e",
+      "overlay": "rgba(0, 0, 0, 0.6)"
     }
   },
   "fieldnotes-light": {
@@ -56,7 +57,8 @@
       "success": "#e0efdc",
       "success-foreground": "#244e25",
       "warning": "#fff0c7",
-      "warning-foreground": "#634714"
+      "warning-foreground": "#634714",
+      "overlay": "rgba(0, 0, 0, 0.35)"
     }
   },
   "midnight": {
@@ -86,7 +88,8 @@
       "success": "#1d3d39",
       "success-foreground": "#a9e4ca",
       "warning": "#413722",
-      "warning-foreground": "#f2d797"
+      "warning-foreground": "#f2d797",
+      "overlay": "rgba(0, 0, 0, 0.6)"
     }
   },
   "ocean": {
@@ -116,7 +119,8 @@
       "success": "#daf1e9",
       "success-foreground": "#1c5441",
       "warning": "#fff0cf",
-      "warning-foreground": "#664813"
+      "warning-foreground": "#664813",
+      "overlay": "rgba(0, 0, 0, 0.35)"
     }
   },
   "forest": {
@@ -146,7 +150,8 @@
       "success": "#20452c",
       "success-foreground": "#b5eac0",
       "warning": "#4d3c20",
-      "warning-foreground": "#f4da9e"
+      "warning-foreground": "#f4da9e",
+      "overlay": "rgba(0, 0, 0, 0.6)"
     }
   },
   "warm": {
@@ -176,7 +181,8 @@
       "success": "#e2ecd5",
       "success-foreground": "#375027",
       "warning": "#fff0cc",
-      "warning-foreground": "#684710"
+      "warning-foreground": "#684710",
+      "overlay": "rgba(0, 0, 0, 0.35)"
     }
   },
   "high-contrast": {
@@ -206,7 +212,8 @@
       "success": "#003800",
       "success-foreground": "#ffffff",
       "warning": "#4a3400",
-      "warning-foreground": "#ffffff"
+      "warning-foreground": "#ffffff",
+      "overlay": "rgba(0, 0, 0, 0.6)"
     }
   }
 }

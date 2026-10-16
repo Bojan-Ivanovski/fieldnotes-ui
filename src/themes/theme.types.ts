@@ -7,6 +7,7 @@ export type BuiltInThemeName =
   | 'warm'
   | 'high-contrast';
 export interface ThemeTokens {
+  overlay: string;
   background: string;
   foreground: string;
   card: string;

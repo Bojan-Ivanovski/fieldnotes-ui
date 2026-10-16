@@ -1,6 +1,6 @@
 # Publishing and documentation deployment
 
-No npm package has been published during extraction. `fieldnotes-ui` returned registry 404 on 2026-10-16; this is an availability observation, not ownership verification or reservation. GitHub target is Bojan-Ivanovski/fieldnotes-ui. Version 0.1.0 is an unpublished extraction checkpoint, not a stable 1.0 API.
+No npm package has been published during extraction. `fieldnotes-ui` returned registry 404 on 2026-10-16; this is an availability observation, not ownership verification or reservation. The local `npm whoami` check returned ENEEDAUTH: this machine has no verified npm account identity. GitHub target is Bojan-Ivanovski/fieldnotes-ui. Version 0.1.0 is an unpublished extraction checkpoint, not a stable 1.0 API.
 
 ## Required external setup
 
