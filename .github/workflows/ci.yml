@@ -20,7 +20,7 @@ jobs:
       NEXT_TELEMETRY_DISABLED: '1'
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
-      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '24'
           cache: npm
@@ -29,6 +29,19 @@ jobs:
       - run: npm run build-storybook
       - run: npm run test:consumers
       - run: npm run test:browser
+      - name: Upload a package file to check artifact compatibility
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: artifact-compatibility
+          path: dist/version.js
+          retention-days: 1
+      - name: Download the same file with the release downloader
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: artifact-compatibility
+          path: ${{ runner.temp }}/artifact-compatibility
+      - name: Verify the downloaded bytes
+        run: cmp dist/version.js "$RUNNER_TEMP/artifact-compatibility/version.js"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         if: failure()
         with:
