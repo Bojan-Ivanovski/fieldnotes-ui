@@ -103,6 +103,8 @@ const expected = {
     'SearchField',
     'ThemeSelector',
     'ResourceCard',
+    'SearchResults',
+    'LoadMoreButton',
     'Navigation',
     'NavigationGroup',
     'NavigationLink',
