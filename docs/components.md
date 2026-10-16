@@ -173,3 +173,42 @@ Optional `description` accepts inline content in a muted paragraph; `metadata` a
 ```
 
 Hooks: `.fn-resource-card`, `.fn-resource-card-title`, `.fn-resource-card-description`, `.fn-resource-card-metadata`, `.fn-resource-card-actions`. Title links/buttons retain native Tab/Enter/Space behavior, visible focus and text wrapping. See the ResourceCard stories for button, link, busy/disabled and long-title variants, and `/library.html` in the packed Vite example. Manual screen-reader validation remains outstanding as described in `docs/accessibility.md`.
+
+## Navigation (composites)
+
+Navigation renders a native nav with required `label`. NavigationGroup renders a named section, Heading (`title` required, `headingLevel=3`), optional sibling heading `actions`, and an unordered list. Place NavigationLink or NavigationButton directly inside each group; each supplies its list-item wrapper. Native attributes/className/ref target nav, section, anchor and button respectively. Use unique landmark labels when a page contains several navigations. Group IDs are generated and stable through hydration.
+
+NavigationLink requires `href` and keeps ordinary browser link behavior, modifier keys, targets and download attributes. NavigationButton defaults `type=button` and preserves native disabled and event semantics. Both accept decorative `icon`, inline `count` (including zero), and `current=false`; `current=true` sets `aria-current=page` for the current destination/view. Ordinary actions do not become toggles; supply native `aria-pressed` only for a real toggle. Icons are hidden from assistive technology, counts are included after the visible name, and consumer `aria-label` can supply a more specific name. Keep icons/counts noninteractive. No routing, roving-focus model, data fetching or selection state is introduced. Native Tab/Enter/Space behavior applies. Render unavailable destinations as text or a disabled action, not a fake disabled anchor.
+
+```tsx
+<Navigation label="Library">
+  <NavigationGroup title="Your library" headingLevel={2}>
+    <NavigationLink href="/documents" current count={12}>
+      All documents
+    </NavigationLink>
+    <NavigationButton onClick={showFavorites} count={0}>
+      Favorites
+    </NavigationButton>
+  </NavigationGroup>
+</Navigation>
+```
+
+Hooks: `.fn-navigation`, `.fn-navigation-group`, `.fn-navigation-heading`, `.fn-navigation-list`, `.fn-navigation-item`, `.fn-navigation-label`, `.fn-navigation-count`, `.fn-navigation-icon`. Labels wrap; themes and forced-colors focus use the shared control tokens.
+
+### Controlled mobile navigation in ApplicationShell
+
+ApplicationShell accepts `navigationOpen` / `onNavigationOpenChange`, or `defaultNavigationOpen=false` for uncontrolled state. Ownership is fixed on mount. Trigger, Escape and outside dismissal request state changes; no child link/button click closes the drawer automatically. Close only after a consumer navigation guard accepts:
+
+```tsx
+<NavigationButton
+  onClick={async () => {
+    if (!(await flushDraft())) return;
+    await navigateToFavorites();
+    setNavigationOpen(false);
+  }}
+>
+  Favorites
+</NavigationButton>
+```
+
+The mobile breakpoint remains `max-width:800px`. Entering desktop requests `false` once when open and renders only the desktop sidebar; the controlled consumer must apply that request, or its retained `true` value may reopen the drawer when returning to mobile. A controlled request does not mutate consumer state. Closing the mobile dialog restores focus to its trigger through Dialog; desktop transition removes the trigger and follows normal browser focus behavior. SSR and the first hydration render use desktop markup; matchMedia selects the presentation after mount. Exactly one sidebar is mounted, so crossing the breakpoint remounts sidebar content: keep persistent navigation state in the consumer. Mobile dialog content is mounted while open. No global click listener, resize polling or duplicate sidebar landmark is added. See `/navigation.html` for delayed accepted/rejected navigation, retained draft values, themes and keyboard dismissal.
