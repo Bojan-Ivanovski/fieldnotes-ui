@@ -2,7 +2,7 @@
 
 An independent React design system extracted from Fieldnotes: forest surfaces, serif headings, accessible controls, and scoped runtime themes. Fieldnotes is a future consumer, never a dependency.
 
-**Status:** [0.1.0 is released on GitHub](https://github.com/Bojan-Ivanovski/fieldnotes-ui/releases/tag/v0.1.0); [0.2.0 development](docs/roadmap.md) adds core forms, navigation and overlays. Not published to npm. The package is installable from its verified tarball. npm publication remains locked pending ownership, trust and release approval.
+**Status:** [0.2.0](https://github.com/Bojan-Ivanovski/fieldnotes-ui/releases/tag/v0.2.0) adds core forms, navigation and overlays. See the [release roadmap](docs/roadmap.md). Not published to npm. The package is installable from its verified tarball. npm publication remains locked pending ownership, trust and release approval.
 
 ## Try the package
 
@@ -11,7 +11,7 @@ npm ci
 npm run build
 npm pack
 # In a separate React application:
-npm install /path/to/fieldnotes-ui-0.1.0.tgz
+npm install /path/to/fieldnotes-ui-0.2.0.tgz
 ```
 
 After an authorized npm release, use `npm install fieldnotes-ui`. React and ReactDOM 19.3.1 are the tested peer baseline; React 18 support is not claimed. Development tooling requires Node 24+.
@@ -62,7 +62,7 @@ Full editors, persistence, authentication, backend access, permissions, routing,
 ## Examples and roadmap
 
 Run `npm run storybook` and open http://localhost:6006. Start with Core/Forms,
-Core/Navigation additions and Core/Overlays for the 0.2.0 candidate. The gallery also
+Core/Navigation additions and Core/Overlays for the 0.2.0 release. The gallery also
 includes initial controls, themes, composites and complete application patterns.
 The packed Vite example has a separate `milestone.html` page for the new controls;
 it exercises forms, menus, transient notifications and nested themed overlays.

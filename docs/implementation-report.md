@@ -71,7 +71,7 @@ Initial extraction and follow-up branches created: `chore/initial-setup`, `ci/re
 
 ## Publishing
 
-- Package name: `fieldnotes-ui`; version: `0.1.0`, unpublished extraction checkpoint. The subsequent 0.2.0 work replaces the original patch Changeset with a minor Changeset; version preparation now targets 0.2.0.
+- Package name: `fieldnotes-ui`; version: `0.1.0`, unpublished extraction checkpoint. The subsequent 0.2.0 release preparation consumed its minor Changeset and synchronized package metadata and the exported version.
 - Package build and actual tarball installation are verified. `publishConfig.access=public` declares the intended distribution, while `private: true` intentionally locks publication.
 - Registry lookup returned 404 on 2026-10-16, which does not reserve the name. Local `npm whoami` returned ENEEDAUTH, so npm ownership is not verified.
 - OIDC publication workflow is manual-only, defaults to verification, and separates tested-artifact generation from protected publication. No ordinary push publishes. No long-lived npm token is configured.
