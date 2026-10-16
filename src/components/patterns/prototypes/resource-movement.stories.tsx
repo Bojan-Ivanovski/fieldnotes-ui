@@ -310,6 +310,42 @@ function MovementDemo() {
         />{' '}
         Simulate server rejection
       </label>
+      <div className="fn-workspace-actions">
+        <Button
+          variant="outline"
+          onClick={() => {
+            const next = latestEntries.current.map((entry) =>
+              entry.id === 'projects'
+                ? { ...entry, writable: !entry.writable }
+                : entry,
+            );
+            latestEntries.current = next;
+            setEntries(next);
+            setMessage(
+              'Projects access changed. Pending moves will recheck permission.',
+            );
+          }}
+        >
+          Toggle Projects write access
+        </Button>
+        <Button
+          variant="outline"
+          onClick={() => {
+            const next = latestEntries.current.map((entry) =>
+              entry.id === 'remote'
+                ? { ...entry, loaded: !entry.loaded }
+                : entry,
+            );
+            latestEntries.current = next;
+            setEntries(next);
+            setMessage(
+              'Remote destination availability changed. Only loaded destinations accept moves.',
+            );
+          }}
+        >
+          Toggle remote destination loaded
+        </Button>
+      </div>
       {render(null)}
       <p role="status" aria-live="polite" aria-atomic="true">
         {message}
