@@ -1,4 +1,5 @@
 import {
+  memo,
   useCallback,
   useEffect,
   useId,
@@ -14,6 +15,7 @@ import {
   hotkeysCoreFeature,
   syncDataLoaderFeature,
   type FeatureImplementation,
+  type ItemInstance,
 } from '@headless-tree/core';
 import { ChevronDown, ChevronRight, FileText, Folder } from 'lucide-react';
 import { cn } from '../../foundations/utilities/cn.js';
@@ -383,6 +385,14 @@ export function ResourceExplorer({
     },
     [tree, ref],
   );
+  const onRowFocused = useCallback(
+    (id: string) => {
+      pendingFocus.current = null;
+      focusedId.current = id;
+      tree.getItemInstance(id).setFocused();
+    },
+    [tree],
+  );
   const typed = useRef({ text: '', at: 0 });
   useEffect(() => {
     typed.current = { text: '', at: 0 };
@@ -451,52 +461,27 @@ export function ResourceExplorer({
       >
         {visible.map((node) => {
           const item = node.getItemData(),
-            folder = item.children !== undefined || item.branch !== undefined;
-          const described = item.branch && !item.disabled && node.isExpanded();
+            meta = node.getItemMeta();
           return (
-            <div
-              {...node.getProps()}
+            <ResourceRow
               key={item.id}
-              className="fn-control fn-tree-item"
-              aria-selected={selected === item.id}
-              aria-disabled={item.disabled || undefined}
-              aria-expanded={
-                folder ? node.isExpanded() && !item.disabled : undefined
+              node={node}
+              item={item}
+              selected={selected === item.id}
+              focused={node.isFocused()}
+              expanded={node.isExpanded()}
+              busy={item.branch?.state === 'loading' || requests.has(item.id)}
+              descriptionId={
+                item.branch && !item.disabled && node.isExpanded()
+                  ? statusId(item.id)
+                  : undefined
               }
-              aria-busy={
-                item.branch?.state === 'loading' ||
-                requests.has(item.id) ||
-                undefined
-              }
-              aria-describedby={described ? statusId(item.id) : undefined}
-              onFocus={() => {
-                pendingFocus.current = null;
-                focusedId.current = item.id;
-                node.setFocused();
-              }}
-              onClick={(event) => {
-                node.setFocused();
-                if (!item.disabled) node.getProps().onClick(event);
-              }}
-              style={{ paddingInlineStart: 9 + node.getItemMeta().level * 13 }}
-            >
-              <span className="fn-tree-chevron" aria-hidden="true">
-                {folder ? (
-                  node.isExpanded() && !item.disabled ? (
-                    <ChevronDown size={12} />
-                  ) : (
-                    <ChevronRight size={12} />
-                  )
-                ) : null}
-              </span>
-              <span className="fn-tree-icon" aria-hidden="true">
-                {item.icon ??
-                  (folder ? <Folder size={14} /> : <FileText size={14} />)}
-              </span>
-              <span className="fn-tree-label">
-                {renderLabel ? renderLabel(item) : item.label}
-              </span>
-            </div>
+              level={meta.level}
+              position={meta.posInSet}
+              setSize={meta.setSize}
+              renderLabel={renderLabel}
+              onFocused={onRowFocused}
+            />
           );
         })}
         {!hasRows && (
@@ -562,3 +547,73 @@ export function ResourceExplorer({
     </div>
   );
 }
+
+interface ResourceRowProps {
+  node: ItemInstance<ResourceItem>;
+  item: ResourceItem;
+  selected: boolean;
+  focused: boolean;
+  expanded: boolean;
+  busy: boolean;
+  descriptionId?: string;
+  level: number;
+  position: number;
+  setSize: number;
+  renderLabel?: (item: ResourceItem) => ReactNode;
+  onFocused: (id: string) => void;
+}
+// Focus/selection changes update only affected rows. Metadata stays explicit so
+// reparenting, filtering and pagination cannot leave stale ARIA positions.
+const ResourceRow = memo(function ResourceRow({
+  node,
+  item,
+  selected,
+  focused,
+  expanded,
+  busy,
+  descriptionId,
+  level,
+  position,
+  setSize,
+  renderLabel,
+  onFocused,
+}: ResourceRowProps) {
+  const folder = item.children !== undefined || item.branch !== undefined;
+  return (
+    <div
+      {...node.getProps()}
+      className="fn-control fn-tree-item"
+      tabIndex={focused ? 0 : -1}
+      aria-selected={selected}
+      aria-disabled={item.disabled || undefined}
+      aria-expanded={folder ? expanded && !item.disabled : undefined}
+      aria-busy={busy || undefined}
+      aria-describedby={descriptionId}
+      aria-level={level + 1}
+      aria-posinset={position + 1}
+      aria-setsize={setSize}
+      onFocus={() => onFocused(item.id)}
+      onClick={(event) => {
+        node.setFocused();
+        if (!item.disabled) node.getProps().onClick(event);
+      }}
+      style={{ paddingInlineStart: 9 + level * 13 }}
+    >
+      <span className="fn-tree-chevron" aria-hidden="true">
+        {folder ? (
+          expanded && !item.disabled ? (
+            <ChevronDown size={12} />
+          ) : (
+            <ChevronRight size={12} />
+          )
+        ) : null}
+      </span>
+      <span className="fn-tree-icon" aria-hidden="true">
+        {item.icon ?? (folder ? <Folder size={14} /> : <FileText size={14} />)}
+      </span>
+      <span className="fn-tree-label">
+        {renderLabel ? renderLabel(item) : item.label}
+      </span>
+    </div>
+  );
+});

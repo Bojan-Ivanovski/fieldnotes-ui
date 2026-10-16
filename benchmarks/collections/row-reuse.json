@@ -1,0 +1,737 @@
+{
+  "workload": {
+    "seed": 41,
+    "runs": 5,
+    "viewport": {
+      "width": 1280,
+      "height": 900
+    },
+    "cpuThrottlingRate": 1,
+    "representative": {
+      "loaded": 1000,
+      "visible": 1000,
+      "shapes": ["flat", "nested"],
+      "expansion": "all"
+    },
+    "p95BudgetsMs": {
+      "initial": 1000,
+      "filter": 200,
+      "keyboard": 50
+    },
+    "stress": {
+      "loaded": 10000,
+      "expansion": ["partial", "all"]
+    }
+  },
+  "environment": {
+    "browser": "156.0.8078.4",
+    "platform": "linux",
+    "cpu": "AMD Ryzen 5 7600X3D 6-Core Processor",
+    "logicalCpus": 12,
+    "memoryBytes": 32662716416,
+    "node": "v26.9.0"
+  },
+  "results": [
+    {
+      "count": 1000,
+      "shape": "flat",
+      "expansion": "all",
+      "stats": {
+        "initial": {
+          "median": 74.80000000447035,
+          "p95": 86.19999999552965
+        },
+        "filter": {
+          "median": 40,
+          "p95": 40.5
+        },
+        "keyboard": {
+          "median": 26.200000002980232,
+          "p95": 38.399999998509884
+        }
+      },
+      "samples": [
+        {
+          "initial": 86.19999999552965,
+          "keyboard": 26.299999997019768,
+          "filter": 39.100000001490116,
+          "rows": 1000,
+          "filteredRows": 250,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 27.69999999552965,
+              "duration": 79
+            }
+          ]
+        },
+        {
+          "initial": 84,
+          "keyboard": 25,
+          "filter": 40.29999999701977,
+          "rows": 1000,
+          "filteredRows": 250,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 26,
+              "duration": 77
+            }
+          ]
+        },
+        {
+          "initial": 74.20000000298023,
+          "keyboard": 38.399999998509884,
+          "filter": 40,
+          "rows": 1000,
+          "filteredRows": 250,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 28.700000002980232,
+              "duration": 68
+            }
+          ]
+        },
+        {
+          "initial": 74.80000000447035,
+          "keyboard": 25.5,
+          "filter": 39,
+          "rows": 1000,
+          "filteredRows": 250,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 24.299999997019768,
+              "duration": 69
+            }
+          ]
+        },
+        {
+          "initial": 71.79999999701977,
+          "keyboard": 26.200000002980232,
+          "filter": 40.5,
+          "rows": 1000,
+          "filteredRows": 250,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 25.399999998509884,
+              "duration": 66
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "count": 1000,
+      "shape": "nested",
+      "expansion": "partial",
+      "stats": {
+        "initial": {
+          "median": 37.099999994039536,
+          "p95": 38.30000000447035
+        },
+        "filter": {
+          "median": 45.20000000298023,
+          "p95": 61.79999999701977
+        },
+        "keyboard": {
+          "median": 23.400000005960464,
+          "p95": 26.19999999552965
+        }
+      },
+      "samples": [
+        {
+          "initial": 37.099999994039536,
+          "keyboard": 22.200000002980232,
+          "filter": 44.899999998509884,
+          "rows": 145,
+          "filteredRows": 300,
+          "focused": true,
+          "longTasks": []
+        },
+        {
+          "initial": 37.100000001490116,
+          "keyboard": 23.100000001490116,
+          "filter": 61.79999999701977,
+          "rows": 145,
+          "filteredRows": 300,
+          "focused": true,
+          "longTasks": []
+        },
+        {
+          "initial": 38.30000000447035,
+          "keyboard": 24.5,
+          "filter": 44.899999998509884,
+          "rows": 145,
+          "filteredRows": 300,
+          "focused": true,
+          "longTasks": []
+        },
+        {
+          "initial": 36.79999999701977,
+          "keyboard": 26.19999999552965,
+          "filter": 45.399999998509884,
+          "rows": 145,
+          "filteredRows": 300,
+          "focused": true,
+          "longTasks": []
+        },
+        {
+          "initial": 36.5,
+          "keyboard": 23.400000005960464,
+          "filter": 45.20000000298023,
+          "rows": 145,
+          "filteredRows": 300,
+          "focused": true,
+          "longTasks": []
+        }
+      ]
+    },
+    {
+      "count": 1000,
+      "shape": "nested",
+      "expansion": "all",
+      "stats": {
+        "initial": {
+          "median": 75.59999999403954,
+          "p95": 80.29999999701977
+        },
+        "filter": {
+          "median": 40.600000001490116,
+          "p95": 54.70000000298023
+        },
+        "keyboard": {
+          "median": 40.899999998509884,
+          "p95": 41.899999998509884
+        }
+      },
+      "samples": [
+        {
+          "initial": 73.60000000149012,
+          "keyboard": 40.899999998509884,
+          "filter": 39.899999998509884,
+          "rows": 1000,
+          "filteredRows": 300,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 24.799999997019768,
+              "duration": 68
+            }
+          ]
+        },
+        {
+          "initial": 74.89999999850988,
+          "keyboard": 40.69999999552965,
+          "filter": 40.600000001490116,
+          "rows": 1000,
+          "filteredRows": 300,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 25.80000000447035,
+              "duration": 69
+            }
+          ]
+        },
+        {
+          "initial": 80.29999999701977,
+          "keyboard": 38.70000000298023,
+          "filter": 40,
+          "rows": 1000,
+          "filteredRows": 300,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 24.899999998509884,
+              "duration": 74
+            }
+          ]
+        },
+        {
+          "initial": 77.30000000447035,
+          "keyboard": 41.899999998509884,
+          "filter": 54.70000000298023,
+          "rows": 1000,
+          "filteredRows": 300,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 23.69999999552965,
+              "duration": 71
+            }
+          ]
+        },
+        {
+          "initial": 75.59999999403954,
+          "keyboard": 41.19999999552965,
+          "filter": 53.900000005960464,
+          "rows": 1000,
+          "filteredRows": 300,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 26.099999994039536,
+              "duration": 69
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "count": 10000,
+      "shape": "flat",
+      "expansion": "all",
+      "stats": {
+        "initial": {
+          "median": 584.7000000029802,
+          "p95": 597.5
+        },
+        "filter": {
+          "median": 196.29999999701977,
+          "p95": 197.29999999701977
+        },
+        "keyboard": {
+          "median": 106.89999999850988,
+          "p95": 109.59999999403954
+        }
+      },
+      "samples": [
+        {
+          "initial": 593.9000000059605,
+          "keyboard": 106.20000000298023,
+          "filter": 196.29999999701977,
+          "rows": 10000,
+          "filteredRows": 2500,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 24.599999994039536,
+              "duration": 592
+            },
+            {
+              "start": 617.2999999970198,
+              "duration": 240
+            },
+            {
+              "start": 1098.0999999940395,
+              "duration": 81
+            },
+            {
+              "start": 1187.8999999985099,
+              "duration": 69
+            },
+            {
+              "start": 1363.5,
+              "duration": 160
+            }
+          ]
+        },
+        {
+          "initial": 583.3999999985099,
+          "keyboard": 106.89999999850988,
+          "filter": 195.89999999850988,
+          "rows": 10000,
+          "filteredRows": 2500,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 26.600000001490116,
+              "duration": 581
+            },
+            {
+              "start": 608.3999999985099,
+              "duration": 242
+            },
+            {
+              "start": 1096.8000000044703,
+              "duration": 78
+            },
+            {
+              "start": 1184.2000000029802,
+              "duration": 68
+            },
+            {
+              "start": 1360.6000000014901,
+              "duration": 159
+            }
+          ]
+        },
+        {
+          "initial": 583.5999999940395,
+          "keyboard": 109.59999999403954,
+          "filter": 197.29999999701977,
+          "rows": 10000,
+          "filteredRows": 2500,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 25.5,
+              "duration": 582
+            },
+            {
+              "start": 607.7000000029802,
+              "duration": 238
+            },
+            {
+              "start": 1092.5,
+              "duration": 80
+            },
+            {
+              "start": 1181.7000000029802,
+              "duration": 70
+            },
+            {
+              "start": 1359.8000000044703,
+              "duration": 160
+            }
+          ]
+        },
+        {
+          "initial": 597.5,
+          "keyboard": 108.20000000298023,
+          "filter": 196.60000000149012,
+          "rows": 10000,
+          "filteredRows": 2500,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 25.600000001490116,
+              "duration": 596
+            },
+            {
+              "start": 621.7999999970198,
+              "duration": 240
+            },
+            {
+              "start": 1113.2999999970198,
+              "duration": 80
+            },
+            {
+              "start": 1202.1999999955297,
+              "duration": 68
+            },
+            {
+              "start": 1379.3999999985099,
+              "duration": 161
+            }
+          ]
+        },
+        {
+          "initial": 584.7000000029802,
+          "keyboard": 106,
+          "filter": 194,
+          "rows": 10000,
+          "filteredRows": 2500,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 24.200000002980232,
+              "duration": 583
+            },
+            {
+              "start": 607.8999999985099,
+              "duration": 242
+            },
+            {
+              "start": 1097.3000000044703,
+              "duration": 81
+            },
+            {
+              "start": 1188.1000000014901,
+              "duration": 70
+            },
+            {
+              "start": 1365.3999999985099,
+              "duration": 158
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "count": 10000,
+      "shape": "nested",
+      "expansion": "partial",
+      "stats": {
+        "initial": {
+          "median": 70.89999999850988,
+          "p95": 84.29999999701977
+        },
+        "filter": {
+          "median": 276.29999999701977,
+          "p95": 276.5
+        },
+        "keyboard": {
+          "median": 27.099999994039536,
+          "p95": 35.899999998509884
+        }
+      },
+      "samples": [
+        {
+          "initial": 70.89999999850988,
+          "keyboard": 24.100000001490116,
+          "filter": 276.29999999701977,
+          "rows": 595,
+          "filteredRows": 3000,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 26,
+              "duration": 65
+            },
+            {
+              "start": 179.80000000447035,
+              "duration": 205
+            }
+          ]
+        },
+        {
+          "initial": 66.30000000447035,
+          "keyboard": 32.399999998509884,
+          "filter": 276.5,
+          "rows": 595,
+          "filteredRows": 3000,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 25,
+              "duration": 60
+            },
+            {
+              "start": 181.40000000596046,
+              "duration": 201
+            }
+          ]
+        },
+        {
+          "initial": 84.29999999701977,
+          "keyboard": 24.200000002980232,
+          "filter": 243.40000000596046,
+          "rows": 595,
+          "filteredRows": 3000,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 25.100000001490116,
+              "duration": 66
+            },
+            {
+              "start": 181,
+              "duration": 198
+            }
+          ]
+        },
+        {
+          "initial": 66.20000000298023,
+          "keyboard": 35.899999998509884,
+          "filter": 276.5,
+          "rows": 595,
+          "filteredRows": 3000,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 24.80000000447035,
+              "duration": 60
+            },
+            {
+              "start": 184.5,
+              "duration": 200
+            }
+          ]
+        },
+        {
+          "initial": 79.29999999701977,
+          "keyboard": 27.099999994039536,
+          "filter": 276.1000000014901,
+          "rows": 595,
+          "filteredRows": 3000,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 23.799999997019768,
+              "duration": 61
+            },
+            {
+              "start": 181.10000000149012,
+              "duration": 201
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "count": 10000,
+      "shape": "nested",
+      "expansion": "all",
+      "stats": {
+        "initial": {
+          "median": 714.3999999985099,
+          "p95": 731.2000000029802
+        },
+        "filter": {
+          "median": 245.60000000149012,
+          "p95": 246.60000000149012
+        },
+        "keyboard": {
+          "median": 113.39999999850988,
+          "p95": 118.10000000149012
+        }
+      },
+      "samples": [
+        {
+          "initial": 599.7999999970198,
+          "keyboard": 113.09999999403954,
+          "filter": 246.60000000149012,
+          "rows": 10000,
+          "filteredRows": 3000,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 25.5,
+              "duration": 598
+            },
+            {
+              "start": 623.9000000059605,
+              "duration": 242
+            },
+            {
+              "start": 1112.4000000059605,
+              "duration": 88
+            },
+            {
+              "start": 1210.3000000044703,
+              "duration": 77
+            },
+            {
+              "start": 1392.6000000014901,
+              "duration": 174
+            }
+          ]
+        },
+        {
+          "initial": 731.2000000029802,
+          "keyboard": 118.10000000149012,
+          "filter": 241.20000000298023,
+          "rows": 10000,
+          "filteredRows": 3000,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 24.100000001490116,
+              "duration": 729
+            },
+            {
+              "start": 753.8999999985099,
+              "duration": 241
+            },
+            {
+              "start": 1242.7999999970198,
+              "duration": 86
+            },
+            {
+              "start": 1338.1999999955297,
+              "duration": 76
+            },
+            {
+              "start": 1530.3999999985099,
+              "duration": 168
+            }
+          ]
+        },
+        {
+          "initial": 598.3000000044703,
+          "keyboard": 113.89999999850988,
+          "filter": 245,
+          "rows": 10000,
+          "filteredRows": 3000,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 25.900000005960464,
+              "duration": 596
+            },
+            {
+              "start": 622.7000000029802,
+              "duration": 240
+            },
+            {
+              "start": 1112.1000000014901,
+              "duration": 86
+            },
+            {
+              "start": 1208,
+              "duration": 76
+            },
+            {
+              "start": 1392.5,
+              "duration": 172
+            }
+          ]
+        },
+        {
+          "initial": 714.3999999985099,
+          "keyboard": 112.19999999552965,
+          "filter": 245.60000000149012,
+          "rows": 10000,
+          "filteredRows": 3000,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 24.899999998509884,
+              "duration": 713
+            },
+            {
+              "start": 738,
+              "duration": 242
+            },
+            {
+              "start": 1230.6000000014901,
+              "duration": 86
+            },
+            {
+              "start": 1326.7000000029802,
+              "duration": 75
+            },
+            {
+              "start": 1508.6000000014901,
+              "duration": 171
+            }
+          ]
+        },
+        {
+          "initial": 729.2000000029802,
+          "keyboard": 113.39999999850988,
+          "filter": 246.5,
+          "rows": 10000,
+          "filteredRows": 3000,
+          "focused": true,
+          "longTasks": [
+            {
+              "start": 25.100000001490116,
+              "duration": 727
+            },
+            {
+              "start": 752.7999999970198,
+              "duration": 244
+            },
+            {
+              "start": 1246.1000000014901,
+              "duration": 87
+            },
+            {
+              "start": 1342.3999999985099,
+              "duration": 76
+            },
+            {
+              "start": 1524.6999999955297,
+              "duration": 170
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

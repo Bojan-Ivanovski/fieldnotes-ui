@@ -1,0 +1,27 @@
+@layer components {
+  .fn-resizable-panes {
+    display: grid;
+    min-width: 0;
+    border: 1px solid var(--fn-border);
+    border-radius: var(--fn-radius-md);
+    overflow: clip;
+  }
+  .fn-resizable-pane {
+    min-width: 0;
+    overflow: auto;
+  }
+  .fn-resize-handle {
+    display: grid;
+    place-items: center;
+    width: 1.25rem;
+    cursor: col-resize;
+    touch-action: none;
+    user-select: none;
+    background: var(--fn-secondary);
+    color: var(--fn-secondary-foreground);
+    border-inline: 1px solid var(--fn-border);
+  }
+  .fn-resize-handle[hidden] {
+    display: none;
+  }
+}

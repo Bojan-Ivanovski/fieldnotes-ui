@@ -1,0 +1,14 @@
+{
+  "seed": 41,
+  "runs": 5,
+  "viewport": { "width": 1280, "height": 900 },
+  "cpuThrottlingRate": 1,
+  "representative": {
+    "loaded": 1000,
+    "visible": 1000,
+    "shapes": ["flat", "nested"],
+    "expansion": "all"
+  },
+  "p95BudgetsMs": { "initial": 1000, "filter": 200, "keyboard": 50 },
+  "stress": { "loaded": 10000, "expansion": ["partial", "all"] }
+}
