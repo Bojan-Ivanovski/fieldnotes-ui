@@ -12,6 +12,11 @@ import {
 } from 'react';
 import { X } from 'lucide-react';
 import { MobileNavigationContext } from './mobile-navigation-context.js';
+import {
+  captureContainedFocus,
+  restoreContainedFocus,
+  type ContainedFocus,
+} from '../../foundations/utilities/contained-focus.js';
 import { cn } from '../../foundations/utilities/cn.js';
 import { useControlled } from '../../foundations/utilities/use-controlled.js';
 import { Dialog, DialogContent, DialogTitle } from '../core/dialog/dialog.js';
@@ -64,15 +69,7 @@ export function DetailsPanel({
   const contentRef = useRef<HTMLDivElement>(null);
   const opener = useRef<HTMLElement | null>(null);
   const transfer = useRef(false);
-  const transferredControl = useRef<{
-    id: string;
-    name: string | null;
-    label: string | null;
-    tag: string;
-    index: number;
-    selection?: [number | null, number | null];
-  } | null>(null);
-  const focusable = 'button, [href], input, textarea, select, [tabindex="0"]';
+  const transferredControl = useRef<ContainedFocus | null>(null);
   const wasOpen = useRef(false);
   const id = useId();
   const Heading = `h${headingLevel}` as const;
@@ -95,25 +92,8 @@ export function DetailsPanel({
   useEffect(() => {
     const query = window.matchMedia('(max-width: 800px)');
     const update = () => {
-      const active = document.activeElement;
-      transfer.current = !!contentRef.current?.contains(active);
-      transferredControl.current =
-        transfer.current && active instanceof HTMLElement
-          ? {
-              id: active.id,
-              name: active.getAttribute('name'),
-              label: active.getAttribute('aria-label'),
-              tag: active.tagName,
-              index: Array.from(
-                contentRef.current!.querySelectorAll(focusable),
-              ).indexOf(active),
-              selection:
-                active instanceof HTMLTextAreaElement ||
-                active instanceof HTMLInputElement
-                  ? [active.selectionStart, active.selectionEnd]
-                  : undefined,
-            }
-          : null;
+      transferredControl.current = captureContainedFocus(contentRef.current);
+      transfer.current = transferredControl.current !== null;
       setMobile(query.matches);
     };
     update();
@@ -121,39 +101,8 @@ export function DetailsPanel({
     return () => query.removeEventListener('change', update);
   }, []);
   const focusTransferredControl = () => {
-    const previous = transferredControl.current;
-    const controls = Array.from(
-      contentRef.current?.querySelectorAll<HTMLElement>(focusable) ?? [],
-    ).filter(
-      (element) =>
-        !element.matches(':disabled') && !element.closest('[hidden]'),
-    );
-    const target =
-      (previous &&
-        controls.find((element) =>
-          previous.id
-            ? element.id === previous.id
-            : previous.name
-              ? element.getAttribute('name') === previous.name &&
-                element.tagName === previous.tag
-              : previous.label
-                ? element.getAttribute('aria-label') === previous.label
-                : false,
-        )) ??
-      (previous ? controls[previous.index] : undefined) ??
-      controls[0];
-    target?.focus();
-    if (
-      previous?.selection &&
-      (target instanceof HTMLTextAreaElement ||
-        target instanceof HTMLInputElement)
-    ) {
-      try {
-        target.setSelectionRange(...previous.selection);
-      } catch {
-        /* Non-text inputs do not support selection. */
-      }
-    }
+    if (transferredControl.current)
+      restoreContainedFocus(contentRef.current, transferredControl.current);
     transfer.current = false;
     transferredControl.current = null;
   };
