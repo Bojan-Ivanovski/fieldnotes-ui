@@ -16,3 +16,8 @@ export type {
   FieldProps,
   FieldControlProps,
 } from '../components/core/forms/controls';
+export { Card, Badge, Alert } from '../components/core/surfaces/surfaces';
+export type {
+  BadgeProps,
+  AlertProps,
+} from '../components/core/surfaces/surfaces';

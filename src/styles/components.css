@@ -214,3 +214,51 @@
   border-radius: var(--fn-radius-sm);
   padding: 4px 8px;
 }
+.fn-card {
+  @apply block;
+  box-sizing: border-box;
+  min-width: 0;
+  border: 1px solid var(--fn-border);
+  border-radius: 8px;
+  background: var(--fn-card);
+  color: var(--fn-card-foreground);
+  padding: var(--fn-space-6);
+  overflow-wrap: anywhere;
+}
+.fn-badge {
+  @apply inline-flex items-center;
+  gap: 6px;
+  width: fit-content;
+  padding: 3px 8px;
+  border-radius: var(--fn-radius-sm);
+  font-family: var(--fn-font-sans);
+  font-size: var(--fn-text-sm);
+  line-height: 1.5;
+  background: var(--fn-secondary);
+  color: var(--fn-secondary-foreground);
+}
+.fn-alert {
+  padding: 12px 16px;
+  border: 1px solid var(--fn-border);
+  border-radius: var(--fn-radius-md);
+  font-family: var(--fn-font-sans);
+  font-size: var(--fn-text-md);
+  line-height: 1.7;
+  background: var(--fn-accent);
+  color: var(--fn-accent-foreground);
+}
+.fn-badge[data-tone='success'],
+.fn-alert[data-tone='success'] {
+  background: var(--fn-success);
+  color: var(--fn-success-foreground);
+}
+.fn-badge[data-tone='warning'],
+.fn-alert[data-tone='warning'] {
+  background: var(--fn-warning);
+  color: var(--fn-warning-foreground);
+}
+.fn-badge[data-tone='destructive'],
+.fn-alert[data-tone='destructive'] {
+  background: var(--fn-destructive);
+  color: var(--fn-destructive-foreground);
+}
