@@ -658,6 +658,8 @@
   }
   .fn-search-field {
     @apply flex items-center;
+    width: 100%;
+    min-width: 0;
     box-sizing: border-box;
     gap: 10px;
     padding: 4px 12px;
