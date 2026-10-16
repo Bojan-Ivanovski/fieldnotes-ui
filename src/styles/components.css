@@ -382,3 +382,8 @@
 .fn-search-field .fn-input:focus-visible {
   outline: none;
 }
+.fn-empty-state {
+  padding: 48px 20px;
+  text-align: center;
+  color: var(--fn-muted-foreground);
+}
