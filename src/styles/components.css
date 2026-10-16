@@ -356,3 +356,29 @@
   background: var(--fn-border);
   margin: 4px;
 }
+.fn-search-field {
+  @apply flex items-center;
+  box-sizing: border-box;
+  gap: 10px;
+  padding: 4px 12px;
+  border: 1px solid var(--fn-input);
+  border-radius: var(--fn-radius-md);
+  background: var(--fn-card);
+  color: var(--fn-muted-foreground);
+}
+.fn-search-field .fn-input {
+  flex: 1;
+  width: 0;
+  background: transparent;
+  border: 0;
+}
+.fn-search-field input::-webkit-search-cancel-button {
+  appearance: none;
+}
+.fn-search-field:focus-within {
+  outline: 2px solid var(--fn-ring);
+  outline-offset: 3px;
+}
+.fn-search-field .fn-input:focus-visible {
+  outline: none;
+}

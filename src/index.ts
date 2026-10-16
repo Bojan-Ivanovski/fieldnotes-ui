@@ -3,3 +3,4 @@ export { version } from './version';
 export * from './themes';
 export * from './primitives';
 export * from './core';
+export * from './composites';
