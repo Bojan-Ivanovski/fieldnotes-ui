@@ -1,0 +1,13 @@
+/* Optional: import in a consumer Tailwind v4 stylesheet after tailwindcss. */
+@theme inline {
+  --color-fn-background: var(--fn-background);
+  --color-fn-foreground: var(--fn-foreground);
+  --color-fn-primary: var(--fn-primary);
+  --color-fn-primary-foreground: var(--fn-primary-foreground);
+  --color-fn-card: var(--fn-card);
+  --color-fn-muted: var(--fn-muted);
+  --color-fn-muted-foreground: var(--fn-muted-foreground);
+  --color-fn-border: var(--fn-border);
+  --color-fn-ring: var(--fn-ring);
+  --radius-fn: var(--fn-radius-md);
+}

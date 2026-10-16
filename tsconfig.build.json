@@ -9,5 +9,10 @@
     "types": ["react", "react-dom"]
   },
   "include": ["src"],
-  "exclude": ["src/**/*.test.*", "src/**/*.stories.*", "src/test-setup.ts"]
+  "exclude": [
+    "src/**/*.test.*",
+    "src/**/*.stories.*",
+    "src/test-setup.ts",
+    "src/styles-entry.ts"
+  ]
 }
