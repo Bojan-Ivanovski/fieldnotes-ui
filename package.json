@@ -1,6 +1,6 @@
 {
   "name": "fieldnotes-ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Composable React UI with the Fieldnotes design language and scoped runtime themes.",
   "type": "module",
   "license": "MIT",

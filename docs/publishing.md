@@ -1,6 +1,6 @@
 # Publishing and documentation deployment
 
-No npm package has been published during extraction. `fieldnotes-ui` returned registry 404 on 2026-10-16; this is an availability observation, not ownership verification or reservation. The local `npm whoami` check returned ENEEDAUTH: this machine has no verified npm account identity. GitHub target is Bojan-Ivanovski/fieldnotes-ui. Version 0.1.0 has a GitHub source/tarball release, but no npm publication; it is not a stable 1.0 API.
+No npm package has been published during extraction. `fieldnotes-ui` returned registry 404 on 2026-10-16; this is an availability observation, not ownership verification or reservation. The local `npm whoami` check returned ENEEDAUTH: this machine has no verified npm account identity. GitHub target is Bojan-Ivanovski/fieldnotes-ui. GitHub source/tarball releases are separate from npm publication; the current 0.x API is not a stable 1.0 API.
 
 ## Required external setup
 
@@ -14,7 +14,7 @@ No npm package has been published during extraction. `fieldnotes-ui` returned re
 
 ## Version preparation and publication
 
-Public API changes receive Changesets. Dispatch Prepare version on main to open a version PR; it never publishes. `npm run version:prepare` runs Changesets, synchronizes src/version.ts and formats the changelog. Merge that PR only after review and CI. The current minor Changeset advances the GitHub-released 0.1.0 baseline to a reviewed 0.2.0 candidate. Preparing a version does not create a GitHub release or publish to npm.
+Public API changes receive Changesets. Dispatch Prepare version on main to open a version PR; it never publishes. `npm run version:prepare` runs Changesets, synchronizes src/version.ts and formats the changelog. Merge that PR only after review and CI. The 0.2.0 release preparation consumed the minor Changeset from the GitHub-released 0.1.0 baseline. New public API changes need new Changesets. Preparing a version does not create a GitHub release or publish to npm.
 
 Publish approved release is manual-only. It checks the exact requested version against package.json and the changelog, requires main, runs the complete checks/Storybook/consumer/browser gates, and uploads the tested tarball. With publish=false it verifies without publication. With publish=true, it additionally requires the reviewed publication unlock; the protected npm-publish environment controls the separate job with id-token:write. That job downloads the exact tested artifact and runs `npm publish ... --access public --provenance`, then creates a GitHub release/tag. It does not use an npm token and never publishes on an ordinary push. Only that job receives release write/OIDC permissions. Publication and release metadata must be verified from actual command/workflow results; a configured workflow is not evidence of a published release.
 
