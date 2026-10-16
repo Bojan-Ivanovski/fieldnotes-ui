@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.3.0
+
+### Minor Changes
+
+- 137f883: Add semantic grouped navigation with native links/actions and controlled mobile navigation state in ApplicationShell.
+- 76ab901: Add SearchResults with a persistent polite status and native result composition, plus focus-preserving LoadMoreButton pending behavior.
+
+  Preserve explicit native aria-busy on Button when its disabling loading state is not active.
+
+- e34376c: Add ResourceCard composition with native article/title semantics, descriptions, metadata and independent actions.
+- 38fe00a: Add loaded-data filtering with ancestor paths and temporary expansion, explicit asynchronous branch states and external request controls, and DOM focus recovery across resource updates. Empty explorers expose a named focusable region until tree rows are available.
+
 ## 0.2.0
 
 ### Minor Changes
