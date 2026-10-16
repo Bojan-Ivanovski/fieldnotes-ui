@@ -33,3 +33,9 @@ bash scripts/visual-container.sh tests/browser/branch-prototype.spec.ts
 ```
 
 The production implementation must separately verify focus fallback, filtering, branch-state updates, all themes and consumer contracts before issue #25 is complete. The prototype alone does not close that issue.
+
+## Production follow-through
+
+The implementation adds explicit branch metadata/request notifications and external controls, ancestor-preserving filtering and DOM focus fallback. `tests/browser/resource-explorer.spec.ts` covers seven themes with axe, initial and append failure/retry, focus retention, disabled/empty folders, data removal/repopulation, filtering without focus theft, mobile overflow and forced-colors focus. The complete 73-test pinned browser suite passed with existing visual baselines unchanged; the new mobile branch screenshot was inspected. Component tests also verify hidden stored expansion does not begin fetching merely because filtering reveals an ancestor.
+
+A further browser regression check showed the primitive's delayed focus poll could reclaim focus after the user had already focused search. A small internal feature override now focuses an existing target immediately, or queues a handoff that is cancelled when focus leaves the explorer. The maintained primitive still owns collection, roving state, expansion and hotkeys. `leaving immediately after tree keyboard navigation cancels deferred focus work` exercises this boundary with real keyboard navigation followed by focusing search.
