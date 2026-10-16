@@ -43,6 +43,7 @@ export default defineConfig({
         milestone: resolve(import.meta.dirname, 'milestone.html'),
         library: resolve(import.meta.dirname, 'library.html'),
         navigation: resolve(import.meta.dirname, 'navigation.html'),
+        search: resolve(import.meta.dirname, 'search.html'),
       },
       output: { manualChunks: undefined },
     },

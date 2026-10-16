@@ -212,3 +212,30 @@ ApplicationShell accepts `navigationOpen` / `onNavigationOpenChange`, or `defaul
 ```
 
 The mobile breakpoint remains `max-width:800px`. Entering desktop requests `false` once when open and renders only the desktop sidebar; the controlled consumer must apply that request, or its retained `true` value may reopen the drawer when returning to mobile. A controlled request does not mutate consumer state. Closing the mobile dialog restores focus to its trigger through Dialog; desktop transition removes the trigger and follows normal browser focus behavior. SSR and the first hydration render use desktop markup; matchMedia selects the presentation after mount. Exactly one sidebar is mounted, so crossing the breakpoint remounts sidebar content: keep persistent navigation state in the consumer. Mobile dialog content is mounted while open. No global click listener, resize polling or duplicate sidebar landmark is added. See `/navigation.html` for delayed accepted/rejected navigation, retained draft values, themes and keyboard dismissal.
+
+## SearchResults and LoadMoreButton (composites)
+
+SearchResults composes a named native section with required React-node `title`, Heading (`headingLevel=2`), a persistent polite/atomic status paragraph (`announcement=''`), and a result-content div (`loading=false` controls its aria-busy). Native section attributes, ref and className reach the section. Status lives outside the busy div so progress can be announced while results update. Supply localized counts/progress/outcomes; unchanged text is not remounted. Avoid announcing every keystroke for submitted searches. Children remain consumer-rendered native collections, links, cards, EmptyState and Alert/retry controls; there is no combobox, listbox, selection model or implicit fetching. The `.fn-search-results` root reuses Stack spacing.
+
+Keep draft input separate from committed query for submitted search. Keep previous results visible during refresh only with an announcement identifying them as previous results; use loading/empty/error content appropriate to the current request. Clear the input and committed results together when that is the intended product behavior. Consumer code owns debounce, cancellation, generation checks that reject stale responses, paging cursors, errors and retry. `/search.html` demonstrates initial/loading/populated/empty/error/retry, stale results, out-of-order responses and local filtering using SearchField.
+
+LoadMoreButton accepts Button props except loading/loadingLabel, plus `pending=false` and `pendingLabel='Loading more'`; children default to “Load more”. Pending sets aria-busy and aria-disabled, shows a decorative spinner and the pending label, and blocks its onClick handler for pointer/keyboard activation. It stays natively focusable while pending so appended results and failures do not discard focus. Native ref/attributes/className reach the button; explicit disabled still uses native disabled behavior. Consumer aria-disabled also blocks activation, useful for a focusable “All results loaded” state. Keep the same button mounted through pending/retry/completion; if you remove it, provide an explicit focus destination. Announce append results/errors through the surrounding status/Alert. Async ownership remains with the consumer, including preventing duplicate requests from other entry points and discarding obsolete page responses.
+
+```tsx
+<SearchResults
+  title="Documents"
+  announcement={`${items.length} documents found`}
+  loading={refreshing}
+>
+  <ul>
+    {items.map((item) => (
+      <li key={item.id}>
+        <ResourceCard title={<a href={item.href}>{item.title}</a>} />
+      </li>
+    ))}
+  </ul>
+  <LoadMoreButton pending={appending} onClick={loadNextPage} />
+</SearchResults>
+```
+
+See SearchResults stories for every result state and pagination. Automated coverage checks live-region DOM stability and real keyboard/focus behavior; manual screen-reader announcement validation remains a later production gate.

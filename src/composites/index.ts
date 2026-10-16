@@ -20,3 +20,11 @@ export type {
   NavigationLinkProps,
   NavigationButtonProps,
 } from '../components/composites/navigation.js';
+export {
+  SearchResults,
+  LoadMoreButton,
+} from '../components/composites/search-results.js';
+export type {
+  SearchResultsProps,
+  LoadMoreButtonProps,
+} from '../components/composites/search-results.js';

@@ -37,7 +37,7 @@ export function Button({
       type={type}
       className={cn(buttonVariants({ variant, size }), className)}
       disabled={disabled || loading}
-      aria-busy={loading || undefined}
+      aria-busy={loading || props['aria-busy']}
     >
       {loading && <Spinner label={loadingLabel} />}
       <span className="fn-button-content">{children}</span>
