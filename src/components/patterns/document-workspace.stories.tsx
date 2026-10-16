@@ -6,6 +6,14 @@ import { DetailsPanel } from './details-panel.js';
 import { SettingsExample } from './settings-example.js';
 import { Button } from '../core/button/button.js';
 import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuCheckboxItem,
+  DropdownMenuSeparator,
+} from '../core/navigation/dropdown-menu.js';
+import {
   Dialog,
   DialogContent,
   DialogTitle,
@@ -19,7 +27,11 @@ const meta = {
   args: { title: 'A place for unfinished ideas' },
 } satisfies Meta<typeof DocumentWorkspace>;
 export default meta;
-function WorkspaceDemo() {
+function WorkspaceDemo({
+  initialReadOnly = false,
+}: { initialReadOnly?: boolean } = {}) {
+  const [readOnly, setReadOnly] = useState(initialReadOnly);
+  const saving = useRef(false);
   const [text, setText] = useState(
     'A quiet place to think.\n\nStart writing here.',
   );
@@ -32,10 +44,23 @@ function WorkspaceDemo() {
   const detailsButton = useRef<HTMLButtonElement>(null);
   const editor = useRef<HTMLTextAreaElement>(null);
   const revision = useRef(0);
+  function download() {
+    const url = URL.createObjectURL(
+      new Blob([text], { type: 'text/plain;charset=utf-8' }),
+    );
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'unfinished-ideas.txt';
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
   async function save() {
+    if (saving.current || readOnly) return;
+    saving.current = true;
     const savingRevision = revision.current;
     setState('saving');
     await new Promise((resolve) => setTimeout(resolve, 600));
+    saving.current = false;
     setState(
       fail
         ? 'error'
@@ -55,7 +80,11 @@ function WorkspaceDemo() {
       metadata="Personal workspace · Edited just now"
       actions={
         <>
-          <Button onClick={save} loading={state === 'saving'}>
+          <Button
+            onClick={save}
+            disabled={readOnly}
+            loading={state === 'saving'}
+          >
             Save
           </Button>
           <Button
@@ -66,6 +95,26 @@ function WorkspaceDemo() {
           >
             Details
           </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost">More document actions</Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem onSelect={download}>
+                Download text
+              </DropdownMenuItem>
+              <DropdownMenuCheckboxItem
+                checked={readOnly}
+                onCheckedChange={(value) => setReadOnly(value === true)}
+              >
+                Read only
+              </DropdownMenuCheckboxItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem disabled>
+                Share (not configured)
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </>
       }
       status={
@@ -73,9 +122,14 @@ function WorkspaceDemo() {
           state={state}
           actions={
             state === 'error' ? (
-              <Button size="sm" onClick={save}>
-                Retry save
-              </Button>
+              <>
+                <Button size="sm" onClick={save}>
+                  Retry save
+                </Button>
+                <Button size="sm" variant="outline" onClick={download}>
+                  Download unsaved copy
+                </Button>
+              </>
             ) : undefined
           }
         />
@@ -105,11 +159,12 @@ function WorkspaceDemo() {
           <textarea
             ref={editor}
             aria-label="Document text"
+            readOnly={readOnly}
             value={text}
             onChange={(event) => {
               revision.current += 1;
               setText(event.target.value);
-              setState('unsaved');
+              if (!saving.current) setState('unsaved');
             }}
             style={{
               width: '100%',
@@ -140,6 +195,9 @@ function WorkspaceDemo() {
 }
 export const Interactive: StoryObj<typeof meta> = {
   render: () => <WorkspaceDemo />,
+};
+export const ReadOnly: StoryObj<typeof meta> = {
+  render: () => <WorkspaceDemo initialReadOnly />,
 };
 export const LongTitle: StoryObj<typeof meta> = {
   args: {

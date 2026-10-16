@@ -110,7 +110,17 @@ const expected = {
     'NavigationLink',
     'NavigationButton',
   ],
-  patterns: ['ApplicationShell', 'ResourceExplorer', 'Sidebar'],
+  patterns: [
+    'ApplicationShell',
+    'ResourceExplorer',
+    'Sidebar',
+    'DocumentWorkspace',
+    'OperationStatus',
+    'EditorLayout',
+    'DetailsPanel',
+    'SettingsLayout',
+    'SettingsSection',
+  ],
   themes: ['ThemeProvider', 'builtInThemes', 'defineTheme', 'useTheme'],
   hooks: ['useTheme'],
 };

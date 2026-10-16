@@ -38,6 +38,11 @@ import {
   TabsList,
   TabsTrigger,
   TabsContent,
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuCheckboxItem,
 } from 'fieldnotes-ui/core';
 
 const documents = [
@@ -101,6 +106,7 @@ function Content() {
     Record<string, 'saved' | 'saving' | 'unsaved' | 'error'>
   >({});
   const [failSave, setFailSave] = useState(false);
+  const [readOnly, setReadOnly] = useState(false);
   const saving = useRef(false);
   const guard = useRef({ dirty: false, protect: true });
   const bodySnapshot = useRef(bodies);
@@ -303,8 +309,19 @@ function Content() {
   useLayoutEffect(() => {
     guard.current = { dirty: dirty || documentDirty, protect };
   }, [dirty, documentDirty, protect]);
+  function downloadDocument() {
+    if (!current) return;
+    const url = URL.createObjectURL(
+      new Blob([documentBody], { type: 'text/plain;charset=utf-8' }),
+    );
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${current.id}.txt`;
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
   async function saveDocument() {
-    if (!current || saving.current) return;
+    if (!current || saving.current || readOnly) return;
     const id = current.id,
       snapshot = documentBody;
     saving.current = true;
@@ -570,11 +587,12 @@ function Content() {
               <DocumentWorkspace
                 title={current.title}
                 headingLevel={3}
-                metadata="Editable document · Local demonstration"
+                metadata={`${readOnly ? 'Read only' : 'Editable document'} · Local demonstration`}
                 actions={
                   <>
                     <Button
                       loading={saveState === 'saving'}
+                      disabled={readOnly}
                       onClick={() => void saveDocument()}
                     >
                       Save document
@@ -590,6 +608,24 @@ function Content() {
                     >
                       Document details
                     </Button>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost">More document actions</Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DropdownMenuItem onSelect={downloadDocument}>
+                          Download text
+                        </DropdownMenuItem>
+                        <DropdownMenuCheckboxItem
+                          checked={readOnly}
+                          onCheckedChange={(value) =>
+                            setReadOnly(value === true)
+                          }
+                        >
+                          Read only
+                        </DropdownMenuCheckboxItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </>
                 }
                 status={
@@ -603,9 +639,22 @@ function Content() {
                     }
                     actions={
                       saveState === 'error' ? (
-                        <Button size="sm" onClick={() => void saveDocument()}>
-                          Retry document save
-                        </Button>
+                        <>
+                          <Button
+                            size="sm"
+                            disabled={readOnly}
+                            onClick={() => void saveDocument()}
+                          >
+                            Retry document save
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={downloadDocument}
+                          >
+                            Download unsaved copy
+                          </Button>
+                        </>
                       ) : undefined
                     }
                   />
@@ -613,6 +662,7 @@ function Content() {
                 panel={
                   <DetailsPanel
                     title="Document details"
+                    headingLevel={4}
                     open={panelOpen && !focusMode}
                     onOpenChange={(next) => {
                       if (next) setOpen(false);

@@ -48,6 +48,7 @@ export default defineConfig({
         explorer: resolve(import.meta.dirname, 'explorer.html'),
         workspace: resolve(import.meta.dirname, 'workspace.html'),
         collections: resolve(import.meta.dirname, 'collections.html'),
+        settings: resolve(import.meta.dirname, 'settings.html'),
       },
       output: { manualChunks: undefined },
     },

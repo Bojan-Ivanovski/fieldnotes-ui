@@ -32,6 +32,8 @@ export default defineConfig({
     rollupOptions: {
       external: (id) => !id.startsWith('.') && !id.startsWith('/'),
       output: {
+        // Keep mappings without embedding a second copy of every TS source.
+        sourcemapExcludeSources: true,
         banner: '"use client";',
         preserveModules: true,
         preserveModulesRoot: 'src',

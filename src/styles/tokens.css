@@ -32,6 +32,9 @@
   --fn-z-sticky: 30;
   --fn-z-tooltip: 110;
   --fn-ease: ease-out;
+}
+:root,
+[data-fn-theme='fieldnotes-dark'] {
   --fn-background: #101612;
   --fn-foreground: #e1ebda;
   --fn-card: #172019;
@@ -60,32 +63,6 @@
   --fn-overlay: rgba(0, 0, 0, 0.6);
 }
 [data-fn-theme='fieldnotes-dark'] {
-  --fn-background: #101612;
-  --fn-foreground: #e1ebda;
-  --fn-card: #172019;
-  --fn-card-foreground: #e1ebda;
-  --fn-popover: #1d2a20;
-  --fn-popover-foreground: #e1ebda;
-  --fn-primary: #b1d195;
-  --fn-primary-foreground: #172313;
-  --fn-primary-hover: #c6e1ae;
-  --fn-secondary: #1d2a20;
-  --fn-secondary-foreground: #bfd0b3;
-  --fn-muted: #172019;
-  --fn-muted-foreground: #a4b49b;
-  --fn-accent: #253522;
-  --fn-accent-foreground: #dcead0;
-  --fn-destructive: #734033;
-  --fn-destructive-foreground: #ffddc7;
-  --fn-border: #2c392e;
-  --fn-input: #627659;
-  --fn-input-background: #101a13;
-  --fn-ring: #b1d195;
-  --fn-success: #233c27;
-  --fn-success-foreground: #b6e0b1;
-  --fn-warning: #42381e;
-  --fn-warning-foreground: #f0d28e;
-  --fn-overlay: rgba(0, 0, 0, 0.6);
   color-scheme: dark;
 }
 [data-fn-theme='fieldnotes-light'] {
