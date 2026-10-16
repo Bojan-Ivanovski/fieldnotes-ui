@@ -1,0 +1,13 @@
+name: Bug report
+description: Report a reproducible component or package issue
+body:
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction and expected/actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Package/React/browser versions, theme, assistive technology

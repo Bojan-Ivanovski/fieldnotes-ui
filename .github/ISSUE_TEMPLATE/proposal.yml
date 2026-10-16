@@ -1,0 +1,13 @@
+name: Component or feature proposal
+description: Propose a reusable component, behavior or theme improvement
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: Problem, existing Fieldnotes source and reuse evidence
+    validations:
+      required: true
+  - type: textarea
+    id: api
+    attributes:
+      label: Proposed API, composition, accessibility and alternatives
