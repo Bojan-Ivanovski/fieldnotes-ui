@@ -458,3 +458,44 @@
     min-height: 64px;
   }
 }
+.fn-resource-explorer {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.fn-tree-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 37px;
+  padding: 8px 7px;
+  border-radius: 5px;
+  color: var(--fn-muted-foreground);
+  cursor: pointer;
+}
+.fn-tree-item:hover {
+  background: var(--fn-secondary);
+  color: var(--fn-secondary-foreground);
+}
+.fn-tree-item[aria-selected='true'] {
+  background: var(--fn-accent);
+  color: var(--fn-accent-foreground);
+}
+.fn-tree-item[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+.fn-tree-chevron {
+  width: 13px;
+  flex-shrink: 0;
+  display: inline-flex;
+}
+.fn-tree-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.fn-tree-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
