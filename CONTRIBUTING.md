@@ -2,6 +2,8 @@
 
 Use Node 24+ and npm. Clone this repository independently; no Fieldnotes checkout is needed to build or test it. `npm ci` installs the locked dependencies. `npm run storybook` starts interactive development.
 
+Dependabot keeps `@types/node` on the Node 24 baseline and TypeScript below 6.1, matching the current typescript-eslint peer requirement. Compatible updates remain enabled. Revisit the ignore ranges in `.github/dependabot.yml` when changing the minimum supported Node version or upgrading the lint/compiler toolchain together; verify peer compatibility, Node 24 support (unless deliberately changing it), declarations, packed consumers and CI before lifting those limits. These are compatibility constraints, not a permanent decision against newer toolchains.
+
 Before submitting changes run:
 
 ```sh
