@@ -14,7 +14,6 @@ import {
   DialogDescription,
 } from '../core/dialog/dialog.js';
 import { IconButton } from '../core/button/button.js';
-import { VisuallyHidden } from '../primitives/feedback.js';
 export interface SidebarProps extends ComponentPropsWithRef<'aside'> {
   label: string;
   header?: ReactNode;
@@ -82,10 +81,12 @@ export function ApplicationShell({
               </IconButton>
             </DialogTrigger>
             <DialogContent className="fn-mobile-navigation">
-              <VisuallyHidden>
-                <DialogTitle>{navigationLabel}</DialogTitle>
-                <DialogDescription>Choose a destination.</DialogDescription>
-              </VisuallyHidden>
+              <DialogTitle className="fn-sr-only">
+                {navigationLabel}
+              </DialogTitle>
+              <DialogDescription className="fn-sr-only">
+                Choose a destination.
+              </DialogDescription>
               {sidebar}
             </DialogContent>
           </Dialog>
