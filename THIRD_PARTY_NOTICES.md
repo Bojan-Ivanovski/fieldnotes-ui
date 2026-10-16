@@ -25,6 +25,7 @@ Runtime and peer dependencies retain their own licenses and copyright notices in
 | @radix-ui/react-focus-scope@1.3.1            | MIT        |
 | @radix-ui/react-id@1.1.4                     | MIT        |
 | @radix-ui/react-menu@2.2.1                   | MIT        |
+| @radix-ui/react-popover@1.3.1                | MIT        |
 | @radix-ui/react-popper@1.4.0                 | MIT        |
 | @radix-ui/react-portal@1.2.0                 | MIT        |
 | @radix-ui/react-presence@1.1.11              | MIT        |
@@ -32,6 +33,8 @@ Runtime and peer dependencies retain their own licenses and copyright notices in
 | @radix-ui/react-roving-focus@1.2.1           | MIT        |
 | @radix-ui/react-slot@1.5.0                   | MIT        |
 | @radix-ui/react-tabs@1.2.1                   | MIT        |
+| @radix-ui/react-toast@1.3.1                  | MIT        |
+| @radix-ui/react-tooltip@1.4.1                | MIT        |
 | @radix-ui/react-use-callback-ref@1.1.5       | MIT        |
 | @radix-ui/react-use-controllable-state@1.3.0 | MIT        |
 | @radix-ui/react-use-effect-event@0.0.5       | MIT        |
@@ -39,6 +42,7 @@ Runtime and peer dependencies retain their own licenses and copyright notices in
 | @radix-ui/react-use-layout-effect@1.1.4      | MIT        |
 | @radix-ui/react-use-rect@1.1.4               | MIT        |
 | @radix-ui/react-use-size@1.1.5               | MIT        |
+| @radix-ui/react-visually-hidden@1.2.13       | MIT        |
 | @radix-ui/rect@1.1.3                         | MIT        |
 | aria-hidden@1.2.6                            | MIT        |
 | class-variance-authority@0.7.1               | Apache-2.0 |

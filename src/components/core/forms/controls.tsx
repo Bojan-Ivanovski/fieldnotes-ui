@@ -1,4 +1,11 @@
-import { useId, type ComponentPropsWithRef, type ReactNode } from 'react';
+import {
+  useId,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  type ComponentPropsWithRef,
+  type ReactNode,
+} from 'react';
 import { cn } from '../../../foundations/utilities/cn.js';
 export function Input({ className, ...props }: ComponentPropsWithRef<'input'>) {
   return <input {...props} className={cn('fn-control fn-input', className)} />;
@@ -27,15 +34,30 @@ export function Select({
 }
 export function Checkbox({
   className,
+  indeterminate = false,
+  ref,
   ...props
-}: Omit<ComponentPropsWithRef<'input'>, 'type'>) {
+}: CheckboxProps) {
+  const input = useRef<HTMLInputElement>(null);
+  useImperativeHandle(ref, () => input.current!, []);
+  useEffect(() => {
+    if (input.current) input.current.indeterminate = indeterminate;
+  }, [indeterminate]);
   return (
     <input
       {...props}
+      ref={input}
       type="checkbox"
       className={cn('fn-control fn-check', className)}
     />
   );
+}
+export interface CheckboxProps extends Omit<
+  ComponentPropsWithRef<'input'>,
+  'type'
+> {
+  /** Visual/native mixed state. The browser clears it on user activation. */
+  indeterminate?: boolean;
 }
 export function Radio({
   className,

@@ -28,7 +28,7 @@ for (const [name, cwd] of Object.entries(paths)) {
     { cwd, stdio: 'inherit' },
   );
   const code =
-    "import { Button, ThemeProvider, type ThemeTokens } from 'fieldnotes-ui';\nimport { SearchField } from 'fieldnotes-ui/composites';\nimport { ResourceExplorer } from 'fieldnotes-ui/patterns';\nconst tokens: Partial<ThemeTokens> = { primary: '#123456' };\nvoid [Button,ThemeProvider,SearchField,ResourceExplorer,tokens];\n";
+    "import { Button, ThemeProvider, type ThemeTokens } from 'fieldnotes-ui';\nimport { Fieldset, Switch, ErrorSummary, Breadcrumb, Popover, Tooltip, Toast, DropdownMenuCheckboxItem, type CheckboxProps } from 'fieldnotes-ui/core';\nimport { SearchField } from 'fieldnotes-ui/composites';\nimport { ResourceExplorer } from 'fieldnotes-ui/patterns';\nconst checkbox: CheckboxProps = { indeterminate: true };\nvoid checkbox;\nconst tokens: Partial<ThemeTokens> = { primary: '#123456' };\nvoid [Button,ThemeProvider,SearchField,ResourceExplorer,Fieldset,Switch,ErrorSummary,Breadcrumb,Popover,Tooltip,Toast,DropdownMenuCheckboxItem,tokens];\n";
   writeFileSync(`${cwd}/node-contract.mts`, code);
   execFileSync(
     process.execPath,

@@ -1,5 +1,7 @@
 # Fieldnotes source audit
 
+Historical 0.1.0 extraction audit. Deferrals describe the initial boundary; [the release roadmap](roadmap.md) promotes breadcrumbs/toasts and supporting core form/overlay APIs into 0.2.0.
+
 Audited 2026-10-16 against `/home/admin/Coding/fieldnotes`, HEAD `218bcc0` plus the existing uncommitted hosted/discovery changes. Source paths below are relative to that application. No application files were changed. This inventory describes actual UI, including inline JSX, rather than assuming a pre-existing component library.
 
 ## Architecture and visual language

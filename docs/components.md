@@ -85,3 +85,74 @@ Generic single-selection navigation tree, built on Headless Tree's maintained co
 Keyboard: Tab enters one roving tree item; Up/Down traverse visible rows, Right expands or advances, Left collapses or moves to parent, Home/End jump, Enter/Space select, printable keys match labels (700ms typeahead). Selection does not follow focus. Click selects and toggles folders. Disabled nodes remain focusable so assistive technology can discover them; activation and expansion are blocked. Their children remain hidden. Do not put nested buttons/links in renderLabel; use an adjacent action menu for selection. Icons are decorative. `.fn-tree-item[aria-selected][aria-disabled]`, `.fn-tree-label` and `.fn-tree-icon` are stable token-themed hooks.
 
 `<ResourceExplorer label="Pages" items={items} selectedId={active} onSelect={openById} expandedIds={expanded} onExpandedChange={setExpanded} />`. Consumer adapts routes, permissions, API results, lazy loading and pagination into supplied items. Replace items immutably after loading. This initial tree renders visible loaded rows only; it does not virtualize huge datasets, implement drag-and-drop or expose Headless Tree internals. Keep large datasets paged and measure before adding a separate virtualized API. Empty trees have no tab stop; render EmptyState beside them if helpful.
+
+## Grouped forms and validation (0.2.0 core)
+
+`Label` accepts native label props/ref; use `htmlFor` or wrap a single control. `Fieldset` accepts native fieldset props/ref plus required `legend`, optional `description` and `error`. It joins consumer `aria-describedby` IDs with generated feedback IDs and marks errors invalid. `disabled` disables descendant native controls. Use Field for individual controls and Fieldset for related choices; business validation remains in the consumer.
+
+`Switch` accepts native checkbox props/ref except fixed `type=checkbox` and `role=switch`. Use it for on/off settings, with `checked/onChange` or `defaultChecked`; it submits its name/value only when checked and preserves native required/disabled/reset/Space behavior. Default value follows the native input (`on`). Associate a visible label. `Checkbox` additionally accepts `indeterminate=false`; true sets its native mixed state after hydration. Activation clears the mixed state as with native HTML. Update `indeterminate` when recalculating a selection group; it does not create a third submitted value. Existing checkbox props/ref remain compatible.
+
+`ErrorSummary` takes required `errors: readonly { controlId, message }[]` and optional `title` (default “Please correct the following”). It renders nothing for an empty list. Otherwise it renders a named alert, focusable root, and links that focus and scroll to controls. Use stable, unique control IDs. Native div props/ref/className allow focusing the summary after failed submission or changing its role when inline errors already announce changes. It does not run validation, intercept submission or clear errors.
+
+```tsx
+<form onSubmit={validateAndSave}>
+  <ErrorSummary errors={errors} />
+  <Field controlId="title" label="Title" error={titleError}>
+    {(props) => <Input {...props} name="title" required />}
+  </Field>
+  <Fieldset legend="Editing" description="Preferences for this document">
+    <Label>
+      <Switch name="autosave" defaultChecked />
+      Autosave
+    </Label>
+  </Fieldset>
+  <Button type="submit">Save</Button>
+  <Button type="reset">Reset</Button>
+</form>
+```
+
+## Breadcrumb and Separator (0.2.0 core)
+
+Compose `Breadcrumb` (native nav, default aria-label=Breadcrumb), `BreadcrumbList` (ol), `BreadcrumbItem` (li), `BreadcrumbLink` (a), `BreadcrumbPage` (span with aria-current=page) and optional `BreadcrumbSeparator` (decorative hidden li, default `/`). Each accepts the corresponding native props/ref/className. Supply hrefs and click handling yourself; there is no router dependency or inferred path. For router-specific links, place your link inside BreadcrumbItem and apply your own styling. Do not nest anchors. Keep one current-page marker. Lists wrap long paths; no automatic collapsing or ellipsis behavior is implied.
+
+`<Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbLink href="/">Workspace</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbPage>Draft</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>`.
+
+`Separator` renders a div, defaults orientation=horizontal and decorative=false. Use orientation=vertical inside flex layouts; it stretches to its container with a minimum line height. Semantic separators expose role and aria-orientation. decorative=true removes separator semantics. Native div props/ref/className are supported. It is not an interactive resizing handle.
+
+## Rich dropdown menus (0.2.0 core)
+
+In addition to the existing root/trigger/content/item/separator, use `DropdownMenuGroup`, `DropdownMenuLabel`, `DropdownMenuCheckboxItem`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuSub`, `DropdownMenuSubTrigger` and `DropdownMenuSubContent`. These retain Radix props, native refs where applicable and keyboard semantics. Root/submenu open state supports controlled or uncontrolled usage; checkbox/radio values belong to the consumer. Checkbox items accept checked=true/false/indeterminate and onCheckedChange; radio groups use value/onValueChange, and items require a value. Choice items include a decorative indicator. Items close on selection by default; preventDefault in onSelect to retain the menu. disabled items stay inactive and are skipped by keyboard navigation.
+
+SubContent portals into the nearest theme scope, with sideOffset=6, collisionPadding=12 and automatic collision handling. SubTrigger opens with the direction-aware arrow key; Escape/Left returns or closes appropriately. Groups and labels organize menu commands without inventing a selection model. Do not nest interactive elements inside items. Classes `.fn-menu-label`, `.fn-menu-indicator`, `.fn-menu-sub-trigger` complement the existing content/item hooks.
+
+## Tooltip and Popover (0.2.0 core)
+
+These use maintained Radix primitives; state/trigger/anchor/close components retain their upstream contracts. DOM-backed parts accept native refs and className. Content wrappers portal into the nearest ThemeProvider scope with sideOffset=6, collisionPadding=12 and collision avoidance; compose the trigger with `asChild` to avoid nested buttons. Keep overlays outside clipped or transformed ancestors.
+
+`TooltipProvider` supplies shared timings (Radix defaults delayDuration=700ms, skipDelayDuration=300ms). `Tooltip` supports open/onOpenChange or defaultOpen; `TooltipTrigger` wraps a named focusable trigger; `TooltipContent` holds descriptive, noninteractive text. It opens on focus/hover, stays hoverable by default and dismisses with Escape/activation. Tooltip text supplements a trigger's accessible name; it must not be its only label. Side defaults to top.
+
+`Popover` defaults nonmodal and supports open/onOpenChange or defaultOpen, plus modal=true when appropriate. `PopoverTrigger`, optional `PopoverAnchor`, `PopoverContent` and `PopoverClose` compose an interactive dialog. Give Content `aria-label` or `aria-labelledby`. Radix handles initial focus, Escape/outside dismissal and trigger focus restoration. `onOpenAutoFocus`, `onCloseAutoFocus` and dismissal callbacks allow deliberate consumer overrides. Side defaults to bottom. Use Dialog when a full modal task is needed. The content constrains width/height to the viewport and scrolls vertically.
+
+```tsx
+<TooltipProvider>
+  <Tooltip>
+    <TooltipTrigger asChild><Button>Save</Button></TooltipTrigger>
+    <TooltipContent>Save changes to this document.</TooltipContent>
+  </Tooltip>
+</TooltipProvider>
+<Popover>
+  <PopoverTrigger asChild><Button>Details</Button></PopoverTrigger>
+  <PopoverContent aria-label="Document details">
+    <Field label="Title">{(props) => <Input {...props} />}</Field>
+    <PopoverClose asChild><Button>Apply</Button></PopoverClose>
+  </PopoverContent>
+</Popover>
+```
+
+## Toast notifications (0.2.0 core)
+
+Place `ToastProvider` and one `ToastViewport` within a ThemeProvider. Compose `Toast`, `ToastTitle`, optional `ToastDescription`, optional `ToastAction` and `ToastClose`; DOM parts preserve Radix/native props and refs. The viewport is rendered within its current theme scope; roots are moved into it by Radix. Mount it once per notification collection, outside clipped/transformed content. Provider defaults duration=5000ms, swipeDirection=right and swipeThreshold=50px. Toast supports open/onOpenChange or defaultOpen, per-toast duration, and type=foreground (Radix default) or background for passive updates. Queue/state ownership remains in your React app; no global singleton or notification store is introduced. The story and packed consumer show concurrent messages and removing closed entries.
+
+`ToastAction` requires meaningful altText describing an alternative way to perform the action. It dismisses the toast after activation; supply onClick for application behavior. `ToastClose` defaults to an X icon with aria-label="Dismiss notification"; customize its accessible label when needed. `ToastViewport` defaults to the Radix notification region label and F8 hotkey; customize label/hotkey for your app/localization. Hover, viewport focus and window blur pause timeout; timers resume afterward. Swipe or close dismisses; styles provide horizontal swipe feedback. Default viewport is fixed bottom-right, constrained to the viewport, and scrolls for multiple messages.
+
+Keep persistent errors/recovery controls in an Alert or form; transient notices must not be the only route to essential actions. There is no guarantee a user will read a timed message. Avoid multiple urgent announcements or putting every background save into foreground toasts. See [Radix Toast](https://www.radix-ui.com/primitives/docs/components/toast) for additional event and timing contracts.

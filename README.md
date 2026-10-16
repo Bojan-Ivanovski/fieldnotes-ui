@@ -2,7 +2,7 @@
 
 An independent React design system extracted from Fieldnotes: forest surfaces, serif headings, accessible controls, and scoped runtime themes. Fieldnotes is a future consumer, never a dependency.
 
-**Status:** initial 0.1.0 extraction checkpoint, not published to npm. The package is installable from its verified tarball. npm publication remains locked pending ownership, trust and release approval.
+**Status:** [0.1.0 is released on GitHub](https://github.com/Bojan-Ivanovski/fieldnotes-ui/releases/tag/v0.1.0); [0.2.0 development](docs/roadmap.md) adds core forms, navigation and overlays. Not published to npm. The package is installable from its verified tarball. npm publication remains locked pending ownership, trust and release approval.
 
 ## Try the package
 
@@ -47,17 +47,28 @@ Import precompiled CSS once. Consumers need no Tailwind config, scanning or rese
 
 ## Public components
 
-| Layer        | Exports                                                                                                                               |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
-| Primitives   | Stack, Text, Heading, VisuallyHidden, Spinner                                                                                         |
-| Core         | Button, IconButton, Input, Textarea, Select, Checkbox, Radio, Field, Card, Badge, Alert, Dialog parts, Tabs parts, DropdownMenu parts |
-| Composites   | SearchField, ConfirmDialog, EmptyState, ThemeSelector                                                                                 |
-| Patterns     | ApplicationShell, Sidebar, ResourceExplorer                                                                                           |
-| Themes/hooks | ThemeProvider, useTheme, builtInThemes, defineTheme, typed theme definitions                                                          |
+| Layer        | Exports                                                                                                                                                                                                                                              |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Primitives   | Stack, Text, Heading, VisuallyHidden, Spinner                                                                                                                                                                                                        |
+| Core         | Button, IconButton, Input, Textarea, Select, Checkbox, Radio, Switch, Field, Label, Fieldset, ErrorSummary, Breadcrumb parts, Separator, Tooltip parts, Popover parts, Toast parts, Card, Badge, Alert, Dialog parts, Tabs parts, DropdownMenu parts |
+| Composites   | SearchField, ConfirmDialog, EmptyState, ThemeSelector                                                                                                                                                                                                |
+| Patterns     | ApplicationShell, Sidebar, ResourceExplorer                                                                                                                                                                                                          |
+| Themes/hooks | ThemeProvider, useTheme, builtInThemes, defineTheme, typed theme definitions                                                                                                                                                                         |
 
 Use the root entry or stable `/primitives`, `/core`, `/composites`, `/patterns`, `/themes` and `/hooks` entries. Internal files are private. JavaScript is ESM with declarations and tree shaking; React is external. In Next.js, server pages may render the package's client component boundaries. Call hooks/theme factories in client modules. See [component API documentation](docs/components.md), [architecture](docs/architecture.md), and [migration](docs/migration.md).
 
 Full editors, persistence, authentication, backend access, permissions, routing, imports and document workflows remain in Fieldnotes. [The grounded inventory](docs/component-inventory.md) records what was extracted and what is deliberately deferred.
+
+## Examples and roadmap
+
+Run `npm run storybook` and open http://localhost:6006. Start with Core/Forms,
+Core/Navigation additions and Core/Overlays for the 0.2.0 candidate. The gallery also
+includes initial controls, themes, composites and complete application patterns.
+The packed Vite example has a separate `milestone.html` page for the new controls;
+it exercises forms, menus, transient notifications and nested themed overlays.
+
+[Release roadmap and acceptance criteria](docs/roadmap.md) cover 0.2.0 through 1.0.0.
+GitHub milestones close when their release is created, not when implementation merges.
 
 ## Development and validation
 

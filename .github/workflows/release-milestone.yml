@@ -1,0 +1,30 @@
+name: Close released milestone
+on:
+  release:
+    types: [published]
+permissions:
+  contents: read
+  issues: write
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      RELEASE_TAG: ${{ github.event.release.tag_name }}
+    steps:
+      - name: Close the milestone matching the published release
+        shell: bash
+        run: |
+          set -euo pipefail
+          export RELEASE_VERSION="${RELEASE_TAG#v}"
+          if [[ ! "$RELEASE_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "No stable-version milestone for this tag."
+            exit 0
+          fi
+          milestone_number="$(gh api --paginate "repos/$GH_REPO/milestones?state=all" --jq '.[] | select(.title == env.RELEASE_VERSION) | .number')"
+          if [[ -z "$milestone_number" ]]; then
+            echo "No milestone named $RELEASE_VERSION."
+            exit 0
+          fi
+          gh api --method PATCH "repos/$GH_REPO/milestones/$milestone_number" -f state=closed

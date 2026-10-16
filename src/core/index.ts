@@ -15,7 +15,51 @@ export {
 export type {
   FieldProps,
   FieldControlProps,
+  CheckboxProps,
 } from '../components/core/forms/controls.js';
+export {
+  Label,
+  Fieldset,
+  ErrorSummary,
+  Switch,
+} from '../components/core/forms/form-parts.js';
+export type {
+  FieldsetProps,
+  ErrorSummaryProps,
+  SwitchProps,
+} from '../components/core/forms/form-parts.js';
+export {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '../components/core/navigation/breadcrumb.js';
+export { Separator } from '../components/core/surfaces/separator.js';
+export type { SeparatorProps } from '../components/core/surfaces/separator.js';
+export {
+  TooltipProvider,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from '../components/core/overlays/tooltip.js';
+export {
+  Popover,
+  PopoverTrigger,
+  PopoverAnchor,
+  PopoverContent,
+  PopoverClose,
+} from '../components/core/overlays/popover.js';
+export {
+  ToastProvider,
+  Toast,
+  ToastTitle,
+  ToastDescription,
+  ToastAction,
+  ToastClose,
+  ToastViewport,
+} from '../components/core/overlays/toast.js';
 export { Card, Badge, Alert } from '../components/core/surfaces/surfaces.js';
 export type {
   BadgeProps,
@@ -42,5 +86,13 @@ export {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
+  DropdownMenuCheckboxItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
 } from '../components/core/navigation/dropdown-menu.js';
 export type { DropdownMenuItemProps } from '../components/core/navigation/dropdown-menu.js';
