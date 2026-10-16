@@ -95,6 +95,7 @@ function Content() {
   const [savedBodies, setSavedBodies] = useState<Record<string, string>>({});
   const [notes, setNotes] = useState<Record<string, string>>({});
   const [panelOpen, setPanelOpen] = useState(false);
+  const [detailView, setDetailView] = useState('outline');
   const [focusMode, setFocusMode] = useState(false);
   const [saveStates, setSaveStates] = useState<
     Record<string, 'saved' | 'saving' | 'unsaved' | 'error'>
@@ -620,7 +621,7 @@ function Content() {
                     returnFocusRef={detailsTrigger}
                     fallbackFocusRef={documentEditor}
                   >
-                    <Tabs defaultValue="outline">
+                    <Tabs value={detailView} onValueChange={setDetailView}>
                       <TabsList aria-label="Document details view">
                         <TabsTrigger value="outline">Outline</TabsTrigger>
                         <TabsTrigger value="notes">Notes</TabsTrigger>

@@ -111,7 +111,12 @@ export function EditorLayout({
       aria-label={focused ? focusLabel : props['aria-label']}
       onKeyDown={(event) => {
         onKeyDown?.(event);
-        if (!focused || event.defaultPrevented) return;
+        if (
+          !focused ||
+          event.defaultPrevented ||
+          !event.currentTarget.contains(event.target as Node)
+        )
+          return;
         if (event.key === 'Escape') {
           event.preventDefault();
           setFocused(false);

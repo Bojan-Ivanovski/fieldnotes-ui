@@ -6,6 +6,7 @@ import {
   type ReactNode,
 } from 'react';
 import { Menu } from 'lucide-react';
+import { MobileNavigationContext } from './mobile-navigation-context.js';
 import { cn } from '../../foundations/utilities/cn.js';
 import { useControlled } from '../../foundations/utilities/use-controlled.js';
 import {
@@ -82,35 +83,39 @@ export function ApplicationShell({
     return () => query.removeEventListener('change', update);
   }, []);
   return (
-    <div {...props} className={cn('fn-application-shell', className)}>
-      {!mobile && <div className="fn-shell-sidebar">{sidebar}</div>}
-      <div className="fn-main-column">
-        {mobile && (
-          <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-              <IconButton
-                aria-label={`Open ${navigationLabel}`}
-                className="fn-shell-menu"
-              >
-                <Menu size={19} aria-hidden="true" />
-              </IconButton>
-            </DialogTrigger>
-            <DialogContent className="fn-mobile-navigation">
-              <DialogTitle className="fn-sr-only">
-                {navigationLabel}
-              </DialogTitle>
-              <DialogDescription className="fn-sr-only">
-                Choose a destination.
-              </DialogDescription>
-              {sidebar}
-            </DialogContent>
-          </Dialog>
-        )}
-        {header && <header className="fn-app-header">{header}</header>}
-        <main id={mainId} className="fn-main-content">
-          {children}
-        </main>
+    <MobileNavigationContext
+      value={{ active: mobile && open, requestClose: () => setOpen(false) }}
+    >
+      <div {...props} className={cn('fn-application-shell', className)}>
+        {!mobile && <div className="fn-shell-sidebar">{sidebar}</div>}
+        <div className="fn-main-column">
+          {mobile && (
+            <Dialog open={open} onOpenChange={setOpen}>
+              <DialogTrigger asChild>
+                <IconButton
+                  aria-label={`Open ${navigationLabel}`}
+                  className="fn-shell-menu"
+                >
+                  <Menu size={19} aria-hidden="true" />
+                </IconButton>
+              </DialogTrigger>
+              <DialogContent className="fn-mobile-navigation">
+                <DialogTitle className="fn-sr-only">
+                  {navigationLabel}
+                </DialogTitle>
+                <DialogDescription className="fn-sr-only">
+                  Choose a destination.
+                </DialogDescription>
+                {sidebar}
+              </DialogContent>
+            </Dialog>
+          )}
+          {header && <header className="fn-app-header">{header}</header>}
+          <main id={mainId} className="fn-main-content">
+            {children}
+          </main>
+        </div>
       </div>
-    </div>
+    </MobileNavigationContext>
   );
 }
