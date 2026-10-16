@@ -43,9 +43,9 @@ These tests establish initial publication preparation, not a certification of fu
 
 ## Git
 
-[PR #1](https://github.com/Bojan-Ivanovski/fieldnotes-ui/pull/1) is the integration record. The extraction preserves meaningful component and infrastructure commits; CI is required before merging. The main and extraction branches have been pushed. This report records the implementation commits below; its own documentation commit and any integration commit appear in the [complete history](https://github.com/Bojan-Ivanovski/fieldnotes-ui/commits/main).
+[PR #1](https://github.com/Bojan-Ivanovski/fieldnotes-ui/pull/1) is the integration record. The extraction preserves meaningful component and infrastructure commits; CI is required before merging. The main and extraction branches have been pushed. This report records the implementation commits below; documentation, follow-up and integration commits appear in the [complete history](https://github.com/Bojan-Ivanovski/fieldnotes-ui/commits/main).
 
-Branches created: `chore/initial-setup`, `ci/release-preparation`, `docs/public-maintenance`, `feat/application-shell`, `feat/composite-feedback`, `feat/core-button`, `feat/core-surfaces`, `feat/dialog`, `feat/form-controls`, `feat/navigation-controls`, `feat/primitives`, `feat/resource-explorer`, `feat/search-field`, `feat/theme-engine`, `main`, `test/package-consumption`.
+Initial extraction and follow-up branches created: `chore/initial-setup`, `ci/release-preparation`, `docs/public-maintenance`, `feat/application-shell`, `feat/composite-feedback`, `feat/core-button`, `feat/core-surfaces`, `feat/dialog`, `feat/form-controls`, `feat/navigation-controls`, `feat/primitives`, `feat/resource-explorer`, `feat/search-field`, `feat/theme-engine`, `main`, `test/package-consumption`, `fix/mobile-dialog-semantics`.
 
 | Commit    | Change                                                                              |
 | --------- | ----------------------------------------------------------------------------------- |
