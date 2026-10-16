@@ -1037,3 +1037,13 @@
     display: none;
   }
 }
+
+@layer components {
+  .fn-settings-navigation .fn-tabs-list {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .fn-settings-navigation .fn-tabs-trigger {
+    text-align: start;
+  }
+}

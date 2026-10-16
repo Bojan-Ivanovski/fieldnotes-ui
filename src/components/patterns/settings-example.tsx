@@ -1,4 +1,4 @@
-import { useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { SettingsLayout, SettingsSection } from './settings-layout.js';
 import { Button } from '../core/button/button.js';
 import { Field, Input } from '../core/forms/controls.js';
@@ -12,7 +12,13 @@ import {
 import { ConfirmDialog } from '../composites/confirm-dialog.js';
 
 /** Consumer-owned settings state: no persistence or validation engine in the layout. */
-export function SettingsExample() {
+export function SettingsExample({
+  onDirtyChange,
+  onPendingChange,
+}: {
+  onDirtyChange?: (dirty: boolean) => void;
+  onPendingChange?: (pending: boolean) => void;
+} = {}) {
   const id = useId();
   const [section, setSection] = useState('general');
   const [requestedSection, setRequestedSection] = useState<string | null>(null);
@@ -31,6 +37,12 @@ export function SettingsExample() {
   const nameId = `${id}-name`;
   const dirty = name !== saved.name || notifications !== saved.notifications;
   const summary = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    onDirtyChange?.(dirty);
+  }, [dirty, onDirtyChange]);
+  useEffect(() => {
+    onPendingChange?.(pending);
+  }, [pending, onPendingChange]);
   async function submit() {
     if (inFlight.current) return;
     inFlight.current = true;

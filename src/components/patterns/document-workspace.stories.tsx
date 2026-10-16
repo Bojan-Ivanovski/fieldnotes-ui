@@ -5,6 +5,14 @@ import { EditorLayout } from './editor-layout.js';
 import { DetailsPanel } from './details-panel.js';
 import { SettingsExample } from './settings-example.js';
 import { Button } from '../core/button/button.js';
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+  DialogTrigger,
+} from '../core/dialog/dialog.js';
+import { ConfirmDialog } from '../composites/confirm-dialog.js';
 const meta = {
   title: 'Patterns/DocumentWorkspace',
   component: DocumentWorkspace,
@@ -150,4 +158,73 @@ export const LongTitle: StoryObj<typeof meta> = {
 };
 export const Settings: StoryObj<typeof meta> = {
   render: () => <SettingsExample />,
+};
+
+function ModalSettingsDemo() {
+  const [open, setOpen] = useState(false);
+  const [dirty, setDirty] = useState(false);
+  const [pending, setPending] = useState(false);
+  const [confirmLeave, setConfirmLeave] = useState(false);
+  const [message, setMessage] = useState('');
+  function change(next: boolean) {
+    if (next) {
+      setOpen(true);
+      setMessage('');
+      return;
+    }
+    if (pending) {
+      setMessage('Wait until saving finishes.');
+      return;
+    }
+    if (dirty) {
+      setConfirmLeave(true);
+      return;
+    }
+    setOpen(false);
+  }
+  return (
+    <>
+      <Dialog open={open} onOpenChange={change}>
+        <DialogTrigger asChild>
+          <Button>Open settings</Button>
+        </DialogTrigger>
+        <DialogContent
+          style={{ width: 'min(64rem, calc(100vw - 2rem))' }}
+          onEscapeKeyDown={(event) => {
+            if (pending) event.preventDefault();
+          }}
+          onPointerDownOutside={(event) => {
+            if (pending) event.preventDefault();
+          }}
+        >
+          <DialogTitle className="fn-sr-only">Workspace settings</DialogTitle>
+          <DialogDescription className="fn-sr-only">
+            Change your workspace preferences. Unsaved changes require
+            confirmation before closing.
+          </DialogDescription>
+          <SettingsExample
+            onDirtyChange={setDirty}
+            onPendingChange={setPending}
+          />
+          <p role="status">{message}</p>
+          <ConfirmDialog
+            title="Close without saving?"
+            description="Your unsaved settings will be discarded."
+            confirmLabel="Discard and close"
+            cancelLabel="Keep editing"
+            open={confirmLeave}
+            onOpenChange={setConfirmLeave}
+            onConfirm={() => {
+              setConfirmLeave(false);
+              setOpen(false);
+              setDirty(false);
+            }}
+          />
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}
+export const ModalSettings: StoryObj<typeof meta> = {
+  render: () => <ModalSettingsDemo />,
 };

@@ -24,6 +24,7 @@ export interface DetailsPanelProps extends Omit<
   onOpenChange?: (open: boolean) => void;
   footer?: ReactNode;
   closeLabel?: string;
+  headingLevel?: 2 | 3 | 4 | 5 | 6;
   returnFocusRef?: RefObject<HTMLElement | null>;
   fallbackFocusRef?: RefObject<HTMLElement | null>;
 }
@@ -34,6 +35,7 @@ export function DetailsPanel({
   onOpenChange,
   footer,
   closeLabel = 'Close details',
+  headingLevel = 2,
   returnFocusRef,
   fallbackFocusRef,
   children,
@@ -51,6 +53,7 @@ export function DetailsPanel({
   const transfer = useRef(false);
   const wasOpen = useRef(false);
   const id = useId();
+  const Heading = `h${headingLevel}` as const;
   const restoreFocus = useEffectEvent(() => {
     const target = returnFocusRef?.current ?? opener.current;
     if (target?.isConnected) target.focus();
@@ -92,9 +95,9 @@ export function DetailsPanel({
         {mobile ? (
           <DialogTitle>{title}</DialogTitle>
         ) : (
-          <h2 id={id} className="fn-heading">
+          <Heading id={id} className="fn-heading">
             {title}
-          </h2>
+          </Heading>
         )}
         <IconButton aria-label={closeLabel} onClick={() => setOpen(false)}>
           <X size={18} aria-hidden="true" />
