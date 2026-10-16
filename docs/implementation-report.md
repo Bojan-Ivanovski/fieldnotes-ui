@@ -1,5 +1,7 @@
 # Implementation report
 
+This report records the **0.1.0 baseline**, now released on GitHub. For the subsequent 0.2.0 candidate and outstanding milestones, see [roadmap.md](roadmap.md). Component counts and test counts below describe the original extraction, not later milestone completion.
+
 ## Architecture
 
 Standalone repository: https://github.com/Bojan-Ivanovski/fieldnotes-ui. Local checkout: `/home/admin/Coding/fieldnotes-ui`. Fieldnotes application remains outside the dependency graph and was not modified by this extraction.
@@ -69,7 +71,7 @@ Initial extraction and follow-up branches created: `chore/initial-setup`, `ci/re
 
 ## Publishing
 
-- Package name: `fieldnotes-ui`; version: `0.1.0`, unpublished extraction checkpoint. Initial Changesets version preparation produces a reviewed 0.1.1 candidate unless the maintainer deliberately chooses another 0.x plan.
+- Package name: `fieldnotes-ui`; version: `0.1.0`, unpublished extraction checkpoint. The subsequent 0.2.0 work replaces the original patch Changeset with a minor Changeset; version preparation now targets 0.2.0.
 - Package build and actual tarball installation are verified. `publishConfig.access=public` declares the intended distribution, while `private: true` intentionally locks publication.
 - Registry lookup returned 404 on 2026-10-16, which does not reserve the name. Local `npm whoami` returned ENEEDAUTH, so npm ownership is not verified.
 - OIDC publication workflow is manual-only, defaults to verification, and separates tested-artifact generation from protected publication. No ordinary push publishes. No long-lived npm token is configured.

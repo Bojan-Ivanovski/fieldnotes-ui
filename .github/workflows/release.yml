@@ -53,6 +53,7 @@ jobs:
     permissions:
       contents: write
       id-token: write
+      issues: write
     env:
       RELEASE_VERSION: ${{ needs.verify.outputs.version }}
       GH_TOKEN: ${{ github.token }}
@@ -67,4 +68,19 @@ jobs:
           name: approved-package
           path: artifacts
       - run: npm publish artifacts/fieldnotes-ui.tgz --access public --provenance
-      - run: gh release create "v${RELEASE_VERSION}" --target "${GITHUB_SHA}" --title "v${RELEASE_VERSION}" --notes-file CHANGELOG.md
+      - name: Create GitHub release if it was not already released separately
+        run: |
+          if ! gh release view "v${RELEASE_VERSION}" --json url; then
+            gh release create "v${RELEASE_VERSION}" --target "${GITHUB_SHA}" --title "v${RELEASE_VERSION}" --notes-file CHANGELOG.md
+          elif [ "$(gh release view "v${RELEASE_VERSION}" --json isDraft --jq .isDraft)" = "true" ]; then
+            gh release edit "v${RELEASE_VERSION}" --draft=false
+          fi
+      # Releases made by GITHUB_TOKEN do not trigger release-event workflows.
+      - name: Close the released milestone
+        env:
+          GH_REPO: ${{ github.repository }}
+        run: |
+          milestone_number="$(gh api --paginate "repos/$GH_REPO/milestones?state=all" --jq '.[] | select(.title == env.RELEASE_VERSION) | .number')"
+          if [ -n "$milestone_number" ]; then
+            gh api --method PATCH "repos/$GH_REPO/milestones/$milestone_number" -f state=closed
+          fi
