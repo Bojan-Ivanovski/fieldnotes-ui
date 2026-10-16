@@ -30,3 +30,17 @@ export {
   DialogDescription,
 } from '../components/core/dialog/dialog';
 export type { DialogContentProps } from '../components/core/dialog/dialog';
+export {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+} from '../components/core/navigation/tabs';
+export {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from '../components/core/navigation/dropdown-menu';
+export type { DropdownMenuItemProps } from '../components/core/navigation/dropdown-menu';
