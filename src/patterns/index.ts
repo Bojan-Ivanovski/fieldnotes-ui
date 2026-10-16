@@ -10,4 +10,6 @@ export { ResourceExplorer } from '../components/patterns/resource-explorer.js';
 export type {
   ResourceExplorerProps,
   ResourceItem,
+  ResourceBranch,
+  ResourceRequestReason,
 } from '../components/patterns/resource-explorer.js';

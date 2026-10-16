@@ -763,6 +763,14 @@
     flex-direction: column;
     min-width: 0;
   }
+  .fn-branch-controls {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .fn-branch-controls .fn-button-content {
+    min-width: 0;
+    white-space: normal;
+  }
   .fn-tree-item {
     display: flex;
     align-items: center;

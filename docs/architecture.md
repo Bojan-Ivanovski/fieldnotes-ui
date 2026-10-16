@@ -8,7 +8,7 @@ src/themes/            typed definitions, presets, scoped provider and useTheme
 src/components/
   primitives/          layout, typography, hidden text and loading feedback
   core/                actions, grouped forms, surfaces, breadcrumbs, dialogs, menus, tooltips, popovers and toasts
-  composites/          search, confirmation, empty states and theme selection
+  composites/          search/results, resource cards, grouped navigation, confirmation, empty states and theme selection
   patterns/            responsive shell/sidebar and resource explorer
 src/{layer}/index.ts   intentional public layer barrels
 src/styles/           generated runtime tokens, component styles, optional @theme mapping
@@ -26,7 +26,7 @@ Tailwind v4 compiles scoped `.fn-*` component classes using @apply. Preflight is
 
 ## Dependency decisions
 
-React/ReactDOM 19.3.1 are the tested peers. Lucide retains the POC icon language. CVA defines Button variants; clsx and tailwind-merge combine className overrides. Radix handles dialog/tab/menu/tooltip/popover/toast accessibility; action menus default nonmodal to preserve background accessibility. Headless Tree supplies tree collection, focus, expansion and hotkeys; the public API hides its implementation types. Disabled tree nodes remain discoverable but cannot activate/expand. No drag-and-drop or heavyweight editor dependency is included.
+React/ReactDOM 19.3.1 are the tested peers. Lucide retains the POC icon language. CVA defines Button variants; clsx and tailwind-merge combine className overrides. Radix handles dialog/tab/menu/tooltip/popover/toast accessibility; action menus default nonmodal to preserve background accessibility. Headless Tree supplies tree collection, focus, expansion and hotkeys; the public API hides its implementation types. Disabled tree nodes remain discoverable but cannot activate/expand. ResourceExplorer filters loaded records with ancestor paths and temporary expansion; asynchronous branch request controls remain outside the resource tree, as recorded in [the branch-action decision](decisions/resource-explorer-branch-actions.md). Consumer code owns requests and supplied branch states. No drag-and-drop or heavyweight editor dependency is included.
 
 Registry versions were checked on 2026-10-16. TypeScript 7 was current, but typescript-eslint 8.71.2 requires TypeScript <6.1, so the compatible stable 6.0.3 is used. Storybook 10.6.2 explicitly supports Vite 8. Tailwind 4.3.3 uses its Vite integration; the CLI was rejected after its watcher dependency audit reported high-severity advisories. Locked dependencies currently pass npm audit. Actual runtime/peer license closure is checked against THIRD_PARTY_NOTICES.md.
 
