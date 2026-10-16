@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from 'react';
+import { useLayoutEffect, useId, useRef, useState } from 'react';
 import { SettingsLayout, SettingsSection } from './settings-layout.js';
 import { Button } from '../core/button/button.js';
 import { Field, Input } from '../core/forms/controls.js';
@@ -37,10 +37,10 @@ export function SettingsExample({
   const nameId = `${id}-name`;
   const dirty = name !== saved.name || notifications !== saved.notifications;
   const summary = useRef<HTMLDivElement>(null);
-  useEffect(() => {
+  useLayoutEffect(() => {
     onDirtyChange?.(dirty);
   }, [dirty, onDirtyChange]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     onPendingChange?.(pending);
   }, [pending, onPendingChange]);
   async function submit() {

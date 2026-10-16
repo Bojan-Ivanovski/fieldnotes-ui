@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { DetailsPanel } from './details-panel.js';
+import { ConfirmDialog } from '../composites/confirm-dialog.js';
 import { Button } from '../core/button/button.js';
 import { Field, Textarea } from '../core/forms/controls.js';
 const meta = {
@@ -36,6 +37,12 @@ function NotesPanel() {
             />
           )}
         </Field>
+        <ConfirmDialog
+          title="Clear supporting notes?"
+          description="This clears the demonstration note."
+          trigger={<Button variant="outline">Clear notes</Button>}
+          onConfirm={() => setNotes('')}
+        />
       </DetailsPanel>
     </>
   );

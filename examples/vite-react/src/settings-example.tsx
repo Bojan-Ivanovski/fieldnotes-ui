@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useId, useRef, useState } from 'react';
+import { useLayoutEffect, useId, useRef, useState } from 'react';
 import { ThemeProvider, ThemeSelector } from 'fieldnotes-ui';
 import { SettingsLayout, SettingsSection } from 'fieldnotes-ui/patterns';
 import {
@@ -42,10 +42,10 @@ export function SettingsExample({
   const nameId = `${id}-name`;
   const dirty = name !== saved.name || notifications !== saved.notifications;
   const summary = useRef<HTMLDivElement>(null);
-  useEffect(() => {
+  useLayoutEffect(() => {
     onDirtyChange?.(dirty);
   }, [dirty, onDirtyChange]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     onPendingChange?.(pending);
   }, [pending, onPendingChange]);
   async function submit() {

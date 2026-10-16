@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Field, Input } from '../../core/forms/controls.js';
 import { Button } from '../../core/button/button.js';
 import {
   Dialog,
@@ -58,6 +59,8 @@ function MovementDemo() {
   const [pending, setPending] = useState(false);
   const [fail, setFail] = useState(false);
   const [message, setMessage] = useState('Choose a resource to move.');
+  const [destinationQuery, setDestinationQuery] = useState('');
+  const [destinationLimit, setDestinationLimit] = useState(3);
   const active = useRef<string | null>(null);
   const busy = useRef(false);
   const latestEntries = useRef(entries);
@@ -103,6 +106,8 @@ function MovementDemo() {
     focusTargets = true,
   ) {
     if (busy.current) return;
+    setDestinationQuery('');
+    setDestinationLimit(3);
     active.current = id;
     initiator.current = element;
     initiatorId.current = id;
@@ -168,32 +173,66 @@ function MovementDemo() {
     busy.current = false;
     setPending(false);
   }
+  const knownDestinations = [
+    { id: null, name: 'Library root' },
+    ...entries.filter((entry) => entry.folder),
+  ].filter((entry) =>
+    entry.name.toLowerCase().includes(destinationQuery.trim().toLowerCase()),
+  );
   const destinations = (
-    <div
-      ref={targets}
-      role="group"
-      aria-label="Move destination"
-      className="fn-move-destinations"
-    >
-      {[
-        { id: null, name: 'Library root' },
-        ...entries.filter((entry) => entry.folder),
-      ].map((target) => {
-        const reason = source ? invalid(source, target.id) : '';
-        return (
-          <div key={target.id ?? 'root'}>
-            <Button
-              variant="outline"
-              data-move-target={target.id ?? 'root'}
-              aria-disabled={!!reason || pending}
-              onClick={() => void move(target.id)}
-            >
-              {target.name}
-            </Button>
-            {reason && <p className="fn-description">{reason}</p>}
-          </div>
-        );
-      })}
+    <div>
+      <Field label="Filter known destinations">
+        {(props) => (
+          <Input
+            {...props}
+            value={destinationQuery}
+            onChange={(event) => {
+              setDestinationQuery(event.target.value);
+              setDestinationLimit(3);
+            }}
+          />
+        )}
+      </Field>
+      <div
+        ref={targets}
+        role="group"
+        aria-label="Move destination"
+        className="fn-move-destinations"
+      >
+        {knownDestinations.slice(0, destinationLimit).map((target) => {
+          const reason = source ? invalid(source, target.id) : '';
+          return (
+            <div key={target.id ?? 'root'}>
+              <Button
+                variant="outline"
+                data-move-target={target.id ?? 'root'}
+                aria-disabled={!!reason || pending}
+                onClick={() => void move(target.id)}
+              >
+                {target.name}
+              </Button>
+              {reason && <p className="fn-description">{reason}</p>}
+            </div>
+          );
+        })}
+      </div>
+      <Button
+        variant="ghost"
+        aria-disabled={pending || destinationLimit >= knownDestinations.length}
+        onClick={() => {
+          if (!pending && destinationLimit < knownDestinations.length)
+            setDestinationLimit((previous) => previous + 3);
+        }}
+      >
+        {destinationLimit >= knownDestinations.length
+          ? 'All known destinations shown'
+          : 'Show more destinations'}
+      </Button>
+      {!knownDestinations.length && (
+        <p>
+          No matching known destinations. Unloaded contents are not searched.
+        </p>
+      )}
     </div>
   );
   function render(parent: string | null): React.ReactNode {

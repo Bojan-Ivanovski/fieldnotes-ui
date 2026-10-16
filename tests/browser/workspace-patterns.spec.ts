@@ -80,10 +80,19 @@ test('save races, read-only controls, recovery downloads and editor modes retain
   await expect(
     workspace.locator('.fn-operation-status [role="status"]'),
   ).toHaveText('Unsaved changes');
+  await editor.evaluate((element: HTMLTextAreaElement) =>
+    element.setSelectionRange(2, 7),
+  );
   await page.getByRole('button', { name: 'Read', exact: true }).click();
   await expect(editor).toBeHidden();
   await page.getByRole('button', { name: 'Write', exact: true }).click();
   await expect(editor).toHaveValue('A newer revision');
+  expect(
+    await editor.evaluate((element: HTMLTextAreaElement) => [
+      element.selectionStart,
+      element.selectionEnd,
+    ]),
+  ).toEqual([2, 7]);
   await page
     .getByRole('checkbox', { name: 'Simulate document save failure' })
     .check();
@@ -196,6 +205,13 @@ test('focus mode contains keyboard navigation while preserving the mounted edito
     .click();
   const editor = page.getByRole('textbox', { name: 'Document content' });
   await editor.fill('Content survives focus mode');
+  await page
+    .getByRole('button', { name: 'Document details', exact: true })
+    .click();
+  await page.getByRole('tab', { name: 'Notes', exact: true }).click();
+  await page
+    .getByRole('textbox', { name: 'Document notes' })
+    .fill('Restored after focus mode');
   await page.getByRole('button', { name: 'Enter focus mode' }).click();
   await expect(
     page.getByRole('dialog', { name: 'Focused editor' }),
@@ -207,6 +223,12 @@ test('focus mode contains keyboard navigation while preserving the mounted edito
   ).toBeFocused();
   await page.keyboard.press('Escape');
   await expect(editor).toHaveValue('Content survives focus mode');
+  await expect(
+    page.getByRole('textbox', { name: 'Document notes' }),
+  ).toHaveValue('Restored after focus mode');
+  await expect(
+    page.getByRole('button', { name: 'Write', exact: true }),
+  ).toBeFocused();
   await expect(
     page.getByRole('button', { name: 'Document details', exact: true }),
   ).toBeVisible();
@@ -292,12 +314,16 @@ test('movement prototype supports keyboard cancellation, equivalent dialog and r
     .getByRole('button', { name: 'Move A first draft…', exact: true })
     .click();
   const dialog = page.getByRole('dialog', { name: 'Move resource' });
+  await dialog.getByRole('button', { name: 'Show more destinations' }).click();
   await expect(
     dialog.getByRole('button', {
       name: 'Remote folder (not loaded)',
       exact: true,
     }),
   ).toHaveAttribute('aria-disabled', 'true');
+  await dialog
+    .getByRole('textbox', { name: 'Filter known destinations' })
+    .fill('Projects');
   await dialog.getByRole('button', { name: 'Projects', exact: true }).click();
   await expect(dialog).toBeHidden();
   await expect(page.getByRole('status')).toHaveText(
@@ -484,3 +510,29 @@ for (const width of [1280, 390]) {
     ).toBeFocused();
   });
 }
+
+test('Escape dismisses only the nested details dialog before the drawer', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 850 });
+  await page.goto(
+    'http://127.0.0.1:6006/iframe.html?id=patterns-detailspanel--interactive&viewMode=story',
+  );
+  const trigger = page.getByRole('button', {
+    name: 'Document details',
+    exact: true,
+  });
+  await trigger.click();
+  const clear = page.getByRole('button', { name: 'Clear notes', exact: true });
+  await clear.click();
+  await expect(
+    page.getByRole('dialog', { name: 'Clear supporting notes?', exact: true }),
+  ).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(
+    page.getByRole('dialog', { name: 'Supporting details', exact: true }),
+  ).toBeVisible();
+  await expect(clear).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(trigger).toBeFocused();
+});
