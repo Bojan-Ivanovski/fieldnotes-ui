@@ -44,6 +44,7 @@ export default defineConfig({
         library: resolve(import.meta.dirname, 'library.html'),
         navigation: resolve(import.meta.dirname, 'navigation.html'),
         search: resolve(import.meta.dirname, 'search.html'),
+        branchPrototype: resolve(import.meta.dirname, 'branch-prototype.html'),
       },
       output: { manualChunks: undefined },
     },
