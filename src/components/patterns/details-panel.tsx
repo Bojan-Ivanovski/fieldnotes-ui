@@ -108,13 +108,12 @@ export function DetailsPanel({
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent
-          asChild
           aria-describedby={undefined}
           showClose={false}
           className={cn('fn-details-drawer', className)}
           onCloseAutoFocus={(event) => {
             event.preventDefault();
-            restoreFocus();
+            if (!open) restoreFocus();
           }}
         >
           <aside {...props}>{body}</aside>

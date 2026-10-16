@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { DocumentWorkspace, OperationStatus } from './document-workspace.js';
 import { EditorLayout } from './editor-layout.js';
 import { DetailsPanel } from './details-panel.js';
-import { SettingsLayout, SettingsSection } from './settings-layout.js';
+import { SettingsExample } from './settings-example.js';
 import { Button } from '../core/button/button.js';
 const meta = {
   title: 'Patterns/DocumentWorkspace',
@@ -23,10 +23,18 @@ function WorkspaceDemo() {
   const [note, setNote] = useState('');
   const detailsButton = useRef<HTMLButtonElement>(null);
   const editor = useRef<HTMLTextAreaElement>(null);
+  const revision = useRef(0);
   async function save() {
+    const savingRevision = revision.current;
     setState('saving');
     await new Promise((resolve) => setTimeout(resolve, 600));
-    setState(fail ? 'error' : 'saved');
+    setState(
+      fail
+        ? 'error'
+        : revision.current === savingRevision
+          ? 'saved'
+          : 'unsaved',
+    );
   }
   return (
     <DocumentWorkspace
@@ -91,6 +99,7 @@ function WorkspaceDemo() {
             aria-label="Document text"
             value={text}
             onChange={(event) => {
+              revision.current += 1;
               setText(event.target.value);
               setState('unsaved');
             }}
@@ -139,76 +148,6 @@ export const LongTitle: StoryObj<typeof meta> = {
     children: <p>This document can be read without an editor.</p>,
   },
 };
-function SettingsDemo() {
-  const [name, setName] = useState('My workspace');
-  const [pending, setPending] = useState(false);
-  const [message, setMessage] = useState('');
-  return (
-    <SettingsLayout
-      title="Settings"
-      description="Choose how your workspace feels."
-      navigation={
-        <nav aria-label="Settings sections">
-          <a href="#general-settings">General</a>
-          <br />
-          <a href="#danger-settings">Danger zone</a>
-        </nav>
-      }
-    >
-      <form
-        onSubmit={async (event) => {
-          event.preventDefault();
-          setPending(true);
-          setMessage('');
-          await new Promise((resolve) => setTimeout(resolve, 600));
-          setPending(false);
-          setMessage('Settings saved');
-        }}
-      >
-        <SettingsSection
-          id="general-settings"
-          title="General"
-          description="Your workspace identity."
-          actions={
-            <Button type="submit" loading={pending}>
-              Save settings
-            </Button>
-          }
-        >
-          <label htmlFor="workspace-name">Workspace name</label>
-          <input
-            id="workspace-name"
-            required
-            value={name}
-            onChange={(event) => {
-              setName(event.target.value);
-              setMessage('Unsaved changes');
-            }}
-          />
-          <p role="status">{message}</p>
-        </SettingsSection>
-      </form>
-      <SettingsSection
-        id="danger-settings"
-        title="Danger zone"
-        destructive
-        description="Actions that affect the whole workspace."
-        actions={
-          <Button
-            variant="destructive"
-            onClick={() =>
-              setMessage('Deletion requires confirmation in your application.')
-            }
-          >
-            Delete workspace
-          </Button>
-        }
-      >
-        <p>Export your documents before removing a workspace.</p>
-      </SettingsSection>
-    </SettingsLayout>
-  );
-}
 export const Settings: StoryObj<typeof meta> = {
-  render: () => <SettingsDemo />,
+  render: () => <SettingsExample />,
 };

@@ -1,6 +1,7 @@
 import {
   useId,
   useLayoutEffect,
+  useImperativeHandle,
   useRef,
   type ComponentPropsWithRef,
   type ReactNode,
@@ -25,6 +26,7 @@ export interface EditorLayoutProps extends ComponentPropsWithRef<'div'> {
   modeLabels?: Partial<Record<EditorMode, string>>;
   enterFocusLabel?: string;
   exitFocusLabel?: string;
+  focusLabel?: string;
 }
 export function EditorLayout({
   editor,
@@ -42,6 +44,9 @@ export function EditorLayout({
   modeLabels,
   enterFocusLabel = 'Enter focus mode',
   exitFocusLabel = 'Exit focus mode',
+  focusLabel = 'Focused editor',
+  ref,
+  onKeyDown,
   children,
   className,
   ...props
@@ -56,6 +61,32 @@ export function EditorLayout({
     defaultFocusMode,
     onFocusModeChange,
   );
+  const root = useRef<HTMLDivElement>(null);
+  useImperativeHandle(ref, () => root.current!, []);
+  useLayoutEffect(() => {
+    if (!focused || !root.current) return;
+    const outside: { element: HTMLElement; inert: boolean }[] = [];
+    let current: HTMLElement = root.current;
+    while (current.parentElement) {
+      for (const sibling of current.parentElement.children) {
+        if (
+          sibling !== current &&
+          sibling instanceof HTMLElement &&
+          !['SCRIPT', 'STYLE', 'LINK'].includes(sibling.tagName)
+        ) {
+          outside.push({ element: sibling, inert: sibling.inert });
+          sibling.inert = true;
+        }
+      }
+      current = current.parentElement;
+      if (current === document.body) break;
+    }
+    if (!root.current.contains(document.activeElement))
+      root.current.querySelector<HTMLButtonElement>('button')?.focus();
+    return () => {
+      for (const { element, inert } of outside) element.inert = inert;
+    };
+  }, [focused]);
   const id = useId();
   const editorRef = useRef<HTMLDivElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
@@ -74,6 +105,40 @@ export function EditorLayout({
   return (
     <div
       {...props}
+      ref={root}
+      role={focused ? 'dialog' : props.role}
+      aria-modal={focused ? true : undefined}
+      aria-label={focused ? focusLabel : props['aria-label']}
+      onKeyDown={(event) => {
+        onKeyDown?.(event);
+        if (!focused || event.defaultPrevented) return;
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          setFocused(false);
+          return;
+        }
+        if (event.key !== 'Tab' || !root.current) return;
+        const controls = Array.from(
+          root.current.querySelectorAll<HTMLElement>(
+            'button, [href], input, select, textarea, [tabindex]',
+          ),
+        ).filter(
+          (element) =>
+            element.tabIndex >= 0 &&
+            !element.matches(':disabled') &&
+            !element.closest('[hidden], [inert]') &&
+            element.getClientRects().length > 0,
+        );
+        const first = controls[0],
+          last = controls[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
+      }}
       className={cn('fn-editor-layout', className)}
       data-mode={mode}
       data-focus={focused || undefined}
