@@ -31,3 +31,25 @@ Card is a section with native attributes/ref and children, themed surface/border
 Badge is a span for metadata; tone=neutral supports neutral/success/warning/destructive. It is not interactive and adds no live role. `<Badge tone="success">Saved</Badge>`.
 
 Alert is a div with tone=info (info/success/warning/destructive), role=status by default. Set role=alert for urgent failures; for static prose set role=note. `<Alert role="alert" tone="destructive">Save failed. <Button onClick={retry}>Retry</Button></Alert>`. Children, native attributes/ref and className are supported. Neither Badge nor Alert has controlled state, size variants or auto-dismiss. Theme tokens provide all tone pairs. Hooks: `.fn-card`, `.fn-badge[data-tone]`, `.fn-alert[data-tone]`.
+
+## Dialog (core)
+
+Compose Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription and DialogClose. Root supports `open`/`onOpenChange` or `defaultOpen=false`, modal=true. Trigger/Close use native buttons or `asChild` to compose Button. DOM-backed parts accept refs/native attributes/className; Root is state-only. DialogContent defaults `showClose=true`, `closeLabel="Close dialog"`. Its content, overlay, title and close use `.fn-dialog-*` hooks. No size/visual variants; className can change width. Default width 520px shrinks to viewport and scrolls.
+
+```tsx
+<Dialog>
+  <DialogTrigger asChild>
+    <Button>Rename</Button>
+  </DialogTrigger>
+  <DialogContent>
+    <DialogTitle>Rename</DialogTitle>
+    <DialogDescription>Choose a title.</DialogDescription>
+    <Field label="Title">{(props) => <Input {...props} />}</Field>
+    <DialogClose asChild>
+      <Button>Done</Button>
+    </DialogClose>
+  </DialogContent>
+</Dialog>
+```
+
+Always provide a title and description (or explicitly `aria-describedby={undefined}` for content with no description). Radix supplies modal focus trap, Escape/outside dismissal and focus restoration. Content portals into the nearest theme provider, retaining its variables. Avoid transformed/clipped theme ancestors. Consumer controls async work and can prevent Escape/outside dismissal using content event props. Do not disable all ways out of a dialog indefinitely; announce busy/failure state. Prevent close until an operation completes only when the underlying workflow requires it. Library dialogs know nothing about document APIs or permissions.

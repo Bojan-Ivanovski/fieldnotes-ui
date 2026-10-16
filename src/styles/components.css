@@ -262,3 +262,36 @@
   background: var(--fn-destructive);
   color: var(--fn-destructive-foreground);
 }
+.fn-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--fn-z-overlay);
+  background: #0009;
+  backdrop-filter: blur(5px);
+}
+.fn-dialog-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: var(--fn-z-overlay);
+  box-sizing: border-box;
+  width: 520px;
+  max-width: calc(100vw - 28px);
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
+  padding: 34px;
+  border: 1px solid var(--fn-input);
+  border-radius: var(--fn-radius-lg);
+  background: var(--fn-popover);
+  color: var(--fn-popover-foreground);
+  box-shadow: var(--fn-shadow-overlay);
+}
+.fn-dialog-title {
+  padding-right: 24px;
+}
+.fn-dialog-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}

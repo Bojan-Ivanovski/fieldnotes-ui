@@ -21,3 +21,12 @@ export type {
   BadgeProps,
   AlertProps,
 } from '../components/core/surfaces/surfaces';
+export {
+  Dialog,
+  DialogTrigger,
+  DialogClose,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+} from '../components/core/dialog/dialog';
+export type { DialogContentProps } from '../components/core/dialog/dialog';
