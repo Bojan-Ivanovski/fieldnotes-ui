@@ -23,12 +23,12 @@ for (const [name, cwd] of Object.entries(paths)) {
     [
       '--input-type=module',
       '-e',
-      "import { createElement } from 'react'; import { renderToString } from 'react-dom/server'; import { Button, ThemeProvider } from 'fieldnotes-ui'; if (!renderToString(createElement(ThemeProvider,null,createElement(Button,null,'Packed SSR'))).includes('Packed SSR')) process.exit(1);",
+      "import { createElement } from 'react'; import { renderToString } from 'react-dom/server'; import { Button, ThemeProvider, ResourceCard } from 'fieldnotes-ui'; const markup = renderToString(createElement(ThemeProvider,null,createElement(Button,null,'Packed SSR'),createElement(ResourceCard,{title:'Packed card'}))); if (!markup.includes('Packed SSR') || !markup.includes('<article') || !markup.includes('Packed card')) process.exit(1);",
     ],
     { cwd, stdio: 'inherit' },
   );
   const code =
-    "import { Button, ThemeProvider, type ThemeTokens } from 'fieldnotes-ui';\nimport { Fieldset, Switch, ErrorSummary, Breadcrumb, Popover, Tooltip, Toast, DropdownMenuCheckboxItem, type CheckboxProps } from 'fieldnotes-ui/core';\nimport { SearchField } from 'fieldnotes-ui/composites';\nimport { ResourceExplorer } from 'fieldnotes-ui/patterns';\nconst checkbox: CheckboxProps = { indeterminate: true };\nvoid checkbox;\nconst tokens: Partial<ThemeTokens> = { primary: '#123456' };\nvoid [Button,ThemeProvider,SearchField,ResourceExplorer,Fieldset,Switch,ErrorSummary,Breadcrumb,Popover,Tooltip,Toast,DropdownMenuCheckboxItem,tokens];\n";
+    "import { Button, ThemeProvider, type ThemeTokens } from 'fieldnotes-ui';\nimport { Fieldset, Switch, ErrorSummary, Breadcrumb, Popover, Tooltip, Toast, DropdownMenuCheckboxItem, type CheckboxProps } from 'fieldnotes-ui/core';\nimport { SearchField, ResourceCard, type ResourceCardProps } from 'fieldnotes-ui/composites';\nimport { ResourceExplorer } from 'fieldnotes-ui/patterns';\nconst checkbox: CheckboxProps = { indeterminate: true };\nvoid checkbox;\nconst tokens: Partial<ThemeTokens> = { primary: '#123456' };\nconst card: ResourceCardProps = { title: 'A thought', headingLevel: 2 };\nvoid card;\nvoid [Button,ThemeProvider,SearchField,ResourceCard,ResourceExplorer,Fieldset,Switch,ErrorSummary,Breadcrumb,Popover,Tooltip,Toast,DropdownMenuCheckboxItem,tokens];\n";
   writeFileSync(`${cwd}/node-contract.mts`, code);
   execFileSync(
     process.execPath,

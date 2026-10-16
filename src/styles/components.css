@@ -427,6 +427,47 @@
     padding: var(--fn-space-6);
     overflow-wrap: anywhere;
   }
+  .fn-resource-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--fn-space-3);
+  }
+  .fn-resource-card-title {
+    font-size: 1.5rem;
+  }
+  .fn-resource-card-title :is(a, button) {
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    overflow-wrap: anywhere;
+  }
+  .fn-resource-card-title button {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+  .fn-resource-card-title button:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+  }
+  .fn-resource-card-title :is(a, button):focus-visible {
+    outline: var(--fn-focus-width) solid var(--fn-ring);
+    outline-offset: var(--fn-focus-offset);
+  }
+  .fn-resource-card-metadata {
+    font-family: var(--fn-font-sans);
+    font-size: var(--fn-text-sm);
+    color: var(--fn-muted-foreground);
+    line-height: 1.7;
+  }
+  .fn-resource-card-actions {
+    margin-top: auto;
+  }
+  .fn-resource-card-actions .fn-button-content {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
   .fn-badge {
     @apply inline-flex items-center;
     gap: 6px;

@@ -156,3 +156,20 @@ Place `ToastProvider` and one `ToastViewport` within a ThemeProvider. Compose `T
 `ToastAction` requires meaningful altText describing an alternative way to perform the action. It dismisses the toast after activation; supply onClick for application behavior. `ToastClose` defaults to an X icon with aria-label="Dismiss notification"; customize its accessible label when needed. `ToastViewport` defaults to the Radix notification region label and F8 hotkey; customize label/hotkey for your app/localization. Hover, viewport focus and window blur pause timeout; timers resume afterward. Swipe or close dismisses; styles provide horizontal swipe feedback. Default viewport is fixed bottom-right, constrained to the viewport, and scrolls for multiple messages.
 
 Keep persistent errors/recovery controls in an Alert or form; transient notices must not be the only route to essential actions. There is no guarantee a user will read a timed message. Avoid multiple urgent announcements or putting every background save into foreground toasts. See [Radix Toast](https://www.radix-ui.com/primitives/docs/components/toast) for additional event and timing contracts.
+
+## ResourceCard (composites)
+
+ResourceCard is a native `article` with the shared Card surface. Required `title` is a React node rendered inside Heading (`headingLevel=3`, choose 1–6 for the page hierarchy). Supply plain text or one native `<a href>` / `<button type="button">` as the title. Browser navigation, modifiers, native disabled state, primary action events and refs remain on that element; the card does not intercept clicks or implement selection. Give the article `aria-labelledby` only when you want a named article, using a unique title ID.
+
+Optional `description` accepts inline content in a muted paragraph; `metadata` accepts content in a noninteractive-by-default div; `actions` renders a wrapping horizontal Stack; `children` renders additional content between description and metadata. All slots default absent. Native article attributes, events, `className` and ref reach the article. Use Button/IconButton/menu components for independent sibling actions, and native time elements for dates. Loading, permissions, date formatting, routing and mutations remain consumer-owned. Never wrap the whole card in a link/button or put secondary actions inside its title action. Disabled navigation should be rendered as text, rather than an anchor with a fake disabled attribute.
+
+```tsx
+<ResourceCard
+  title={<a href="/documents/idea">An unfinished idea</a>}
+  description="A quiet place to begin."
+  metadata={<time dateTime="2026-10-16">Updated October 16</time>}
+  actions={<Button onClick={favorite}>Add favorite</Button>}
+/>
+```
+
+Hooks: `.fn-resource-card`, `.fn-resource-card-title`, `.fn-resource-card-description`, `.fn-resource-card-metadata`, `.fn-resource-card-actions`. Title links/buttons retain native Tab/Enter/Space behavior, visible focus and text wrapping. See the ResourceCard stories for button, link, busy/disabled and long-title variants, and `/library.html` in the packed Vite example. Manual screen-reader validation remains outstanding as described in `docs/accessibility.md`.
