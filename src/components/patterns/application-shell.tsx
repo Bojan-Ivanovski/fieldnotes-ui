@@ -1,11 +1,13 @@
 import {
   useEffect,
+  useEffectEvent,
   useState,
   type ComponentPropsWithRef,
   type ReactNode,
 } from 'react';
 import { Menu } from 'lucide-react';
 import { cn } from '../../foundations/utilities/cn.js';
+import { useControlled } from '../../foundations/utilities/use-controlled.js';
 import {
   Dialog,
   DialogTrigger,
@@ -44,6 +46,9 @@ export interface ApplicationShellProps extends ComponentPropsWithRef<'div'> {
   header?: ReactNode;
   navigationLabel?: string;
   mainId?: string;
+  navigationOpen?: boolean;
+  defaultNavigationOpen?: boolean;
+  onNavigationOpenChange?: (open: boolean) => void;
 }
 export function ApplicationShell({
   sidebar,
@@ -51,16 +56,26 @@ export function ApplicationShell({
   children,
   navigationLabel = 'Navigation',
   mainId,
+  navigationOpen,
+  defaultNavigationOpen = false,
+  onNavigationOpenChange,
   className,
   ...props
 }: ApplicationShellProps) {
-  const [mobile, setMobile] = useState(false),
-    [open, setOpen] = useState(false);
+  const [mobile, setMobile] = useState(false);
+  const [open, setOpen] = useControlled(
+    navigationOpen,
+    defaultNavigationOpen,
+    onNavigationOpenChange,
+  );
+  const closeForDesktop = useEffectEvent(() => {
+    if (open) setOpen(false);
+  });
   useEffect(() => {
     const query = window.matchMedia('(max-width: 800px)');
     const update = () => {
       setMobile(query.matches);
-      if (!query.matches) setOpen(false);
+      if (!query.matches) closeForDesktop();
     };
     update();
     query.addEventListener('change', update);
