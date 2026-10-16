@@ -1,0 +1,7 @@
+# Git workflow
+
+main is the integration branch. Initial extraction uses sequential feature branches and coherent Conventional Commits: tooling/audit, tokens/themes, primitives, buttons, forms, surfaces, dialogs, navigation, search, feedback composites, application shell, resource explorer, package verification, documentation and release engineering. The final extraction PR retains these meaningful commits; do not squash the entire initial library into an opaque bootstrap commit.
+
+Before each completed checkpoint run lint, typecheck and tests plus relevant package/browser checks. Never commit known failures. Component families may share a commit where one API contract and test suite covers them. Public changes receive a changeset; internal-only edits should explain why one is unnecessary. Push verified work to the authorized repository and use a PR for significant changes. Never force-push shared history or discard unrelated changes.
+
+Recommended branch protection: require the CI / quality check, require an up-to-date branch and review for main, prevent deletion/force pushes, and restrict workflow changes through CODEOWNERS. Prefer preserving initial extraction history; use squash merges for later narrowly scoped PRs. Use one policy consistently and document changes. GitHub settings and environment reviewers must be configured by an authorized maintainer; files alone do not enforce them.
