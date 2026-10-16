@@ -49,3 +49,36 @@ export const InitiallyOpen: StoryObj<typeof meta> = {
     children: <p>Outline, metadata, or other supporting content.</p>,
   },
 };
+
+function RemovedTriggerPanel() {
+  const [open, setOpen] = useState(false);
+  const [showTrigger, setShowTrigger] = useState(true);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const fallback = useRef<HTMLButtonElement>(null);
+  return (
+    <>
+      {showTrigger && (
+        <Button ref={trigger} onClick={() => setOpen(true)}>
+          Open removable details
+        </Button>
+      )}
+      <Button ref={fallback} variant="outline">
+        Document content fallback
+      </Button>
+      <DetailsPanel
+        title="Removable invoker"
+        open={open}
+        onOpenChange={setOpen}
+        returnFocusRef={trigger}
+        fallbackFocusRef={fallback}
+      >
+        <Button onClick={() => setShowTrigger(false)}>
+          Remove invoking button
+        </Button>
+      </DetailsPanel>
+    </>
+  );
+}
+export const RemovedTrigger: StoryObj<typeof meta> = {
+  render: () => <RemovedTriggerPanel />,
+};

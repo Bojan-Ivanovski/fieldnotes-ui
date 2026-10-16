@@ -286,3 +286,13 @@ function ModalSettingsDemo() {
 export const ModalSettings: StoryObj<typeof meta> = {
   render: () => <ModalSettingsDemo />,
 };
+
+export const Minimal: StoryObj<typeof meta> = {
+  args: {
+    children: (
+      <p>
+        A workspace without metadata, actions, status, or a supporting panel.
+      </p>
+    ),
+  },
+};

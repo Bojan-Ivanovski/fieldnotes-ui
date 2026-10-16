@@ -1,0 +1,11 @@
+# Resource movement: retain a consumer interaction prototype
+
+Storybook Prototypes/ResourceMovement is implemented in `src/components/patterns/prototypes/resource-movement.stories.tsx`. The workflow moves a document/folder to another loaded folder. Collection data, permissions, ancestry and asynchronous acceptance stay in the consumer.
+
+A pointer/touch handle starts after an 8px movement threshold. Native button activation starts the same operation for keyboard users; destinations are ordinary buttons. Escape cancels, keeps the hierarchy unchanged and restores the initiator. Every resource also offers a Move dialog, providing an equivalent action without dragging. Valid targets announce completion. Read-only, unloaded, same-parent, cyclic and missing targets are rejected. Permission/availability toggles allow the consumer to change destinations while a request is pending; acceptance rechecks current data. Simulated server rejection retains the collection and offers retry/cancel.
+
+The pinned-browser integration cases verify keyboard initiation/cancellation, focus return, the equivalent dialog, unloaded targets, accepted moves and server rejection. The prototype also supports pointer/touch initiation, but real touch-device and screen-reader operation remain unperformed checks. Pointer users need an on-screen destination; automatic scrolling, multi-resource moves, remote target discovery, and tree pagination integration are not supplied. Unknown destinations must be loaded and validated before acceptance.
+
+Alternatives are a contextual Move action/dialog alone, or a maintained drag-and-drop primitive for a future tree-specific API. The existing tree library has movement features, but adopting them would require reconciling filtering, unloaded branches, ownership and assistive interaction contracts first. This example uses no additional dependency; existing React/Dialog/Button dependencies keep their current licenses. It is excluded from the package and adds zero public runtime/style bytes. Its isolated Storybook payload was not measured.
+
+Decision: keep the prototype and the non-drag equivalent. Do not export drag-and-drop or imply that ResourceExplorer owns mutations. Any public adoption requires a separate reviewed implementation issue with complete tree interaction and device validation.

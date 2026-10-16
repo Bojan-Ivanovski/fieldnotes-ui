@@ -33,6 +33,12 @@ for (const theme of presets) {
       .getByRole('textbox', { name: 'Document notes' })
       .fill('A supporting note');
     expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+    await page.setViewportSize({ width: 390, height: 850 });
+    await expect(
+      page.getByRole('dialog', { name: 'Document details', exact: true }),
+    ).toBeVisible();
+    expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+    await page.keyboard.press('Escape');
     await page.goto('/settings.html');
     await page.getByLabel('Theme', { exact: true }).selectOption(theme);
     await page.getByRole('textbox', { name: 'Workspace name' }).fill('taken');
@@ -376,3 +382,105 @@ test('controlled navigation preserves focus through rapid responsive remounts', 
   ).toBeVisible();
   await expect(page.getByRole('dialog')).toHaveCount(1);
 });
+
+test('favorites, local filtering and asynchronous branches stay independently controlled', async ({
+  page,
+}) => {
+  await page.goto('/workspace.html');
+  await page.getByRole('button', { name: /^Favorites/ }).click();
+  const results = page.getByRole('region', {
+    name: 'Document results',
+    exact: true,
+  });
+  await expect(results.getByRole('status')).toHaveText(
+    '2 documents found; 2 shown.',
+  );
+  await page
+    .getByRole('button', { name: 'Unfavorite An unfinished idea', exact: true })
+    .click();
+  await expect(results).toBeFocused();
+  await expect(results.getByRole('status')).toHaveText(
+    '1 document found; 1 shown.',
+  );
+  await expect(page.getByRole('button', { name: /^Favorites/ })).toContainText(
+    '1',
+  );
+  await page
+    .getByRole('searchbox', { name: 'Filter loaded resources' })
+    .fill('Plans');
+  await expect(
+    page.getByRole('treeitem', { name: 'An unfinished idea', exact: true }),
+  ).toHaveCount(0);
+  await expect(
+    results.getByRole('button', { name: 'Error handling notes', exact: true }),
+  ).toBeVisible();
+  await page.getByRole('button', { name: 'Clear resource filter' }).click();
+  const archive = page.getByRole('treeitem', { name: 'Archive', exact: true });
+  await archive.focus();
+  await page.keyboard.press('ArrowRight');
+  await page
+    .getByRole('button', { name: 'Retry Archive', exact: true })
+    .click();
+  await expect(
+    page.getByRole('treeitem', { name: 'Archived ideas', exact: true }),
+  ).toBeVisible();
+  await page
+    .getByRole('button', { name: 'Load more Archive', exact: true })
+    .click();
+  await page
+    .getByRole('button', { name: 'Retry Archive', exact: true })
+    .click();
+  await expect(
+    page.getByRole('treeitem', { name: 'Earlier plans', exact: true }),
+  ).toBeVisible();
+  await expect(results.getByRole('status')).toHaveText(
+    '1 document found; 1 shown.',
+  );
+});
+
+test('workspace controls remain reachable at doubled layout scale', async ({
+  page,
+}) => {
+  await page.goto('/workspace.html');
+  await page
+    .getByRole('button', { name: 'An unfinished idea', exact: true })
+    .click();
+  // CSS zoom checks the desktop chrome at half the available layout width.
+  // Native browser UI zoom and manual assistive technology remain separate checks.
+  await page.evaluate(() => {
+    document.documentElement.style.zoom = '2';
+    document.documentElement.style.width = '50%';
+  });
+  await page.getByRole('button', { name: 'More document actions' }).click();
+  await expect(
+    page.getByRole('menuitem', { name: 'Download text' }),
+  ).toBeVisible();
+  await page.keyboard.press('Escape');
+  await page.getByRole('button', { name: 'Read', exact: true }).click();
+  await page.getByRole('button', { name: 'Write', exact: true }).click();
+  await expect(
+    page.getByRole('textbox', { name: 'Document content' }),
+  ).toBeVisible();
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+});
+
+for (const width of [1280, 390]) {
+  test(`details returns focus to a supplied fallback after its invoker is removed (${width}px)`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 850 });
+    await page.goto(
+      'http://127.0.0.1:6006/iframe.html?id=patterns-detailspanel--removed-trigger&viewMode=story',
+    );
+    await page.getByRole('button', { name: 'Open removable details' }).click();
+    await page.getByRole('button', { name: 'Remove invoking button' }).click();
+    await page.getByRole('button', { name: 'Close details' }).click();
+    await expect(
+      page.getByRole('button', { name: 'Document content fallback' }),
+    ).toBeFocused();
+  });
+}

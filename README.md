@@ -1,8 +1,10 @@
 # fieldnotes-ui
 
-An independent React design system extracted from Fieldnotes: forest surfaces, serif headings, accessible controls, and scoped runtime themes. Fieldnotes is a future consumer, never a dependency.
+An independent React design system extracted from Fieldnotes: forest surfaces, serif headings, accessible controls, and scoped runtime themes. Consumers supply their own application behavior; Fieldnotes is never a dependency.
 
 **Status:** [0.2.0](https://github.com/Bojan-Ivanovski/fieldnotes-ui/releases/tag/v0.2.0) adds core forms, navigation and overlays. See the [release roadmap](docs/roadmap.md). Not published to npm. The package is installable from its verified tarball. npm publication remains locked pending ownership, trust and release approval.
+
+**Unreleased:** The catalog includes the new workspace components. They are not in the v0.2.0 GitHub release; build the current source to try them.
 
 ## Try the package
 
@@ -51,13 +53,13 @@ Import precompiled CSS once. Consumers need no Tailwind config, scanning or rese
 | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Primitives   | Stack, Text, Heading, VisuallyHidden, Spinner                                                                                                                                                                                                        |
 | Core         | Button, IconButton, Input, Textarea, Select, Checkbox, Radio, Switch, Field, Label, Fieldset, ErrorSummary, Breadcrumb parts, Separator, Tooltip parts, Popover parts, Toast parts, Card, Badge, Alert, Dialog parts, Tabs parts, DropdownMenu parts |
-| Composites   | SearchField, ConfirmDialog, EmptyState, ThemeSelector                                                                                                                                                                                                |
-| Patterns     | ApplicationShell, Sidebar, ResourceExplorer                                                                                                                                                                                                          |
+| Composites   | SearchField, SearchResults, LoadMoreButton, ResourceCard, Navigation parts, ConfirmDialog, EmptyState, ThemeSelector                                                                                                                                 |
+| Patterns     | ApplicationShell, Sidebar, ResourceExplorer, DocumentWorkspace, OperationStatus, EditorLayout, DetailsPanel, SettingsLayout, SettingsSection                                                                                                         |
 | Themes/hooks | ThemeProvider, useTheme, builtInThemes, defineTheme, typed theme definitions                                                                                                                                                                         |
 
 Use the root entry or stable `/primitives`, `/core`, `/composites`, `/patterns`, `/themes` and `/hooks` entries. Internal files are private. JavaScript is ESM with declarations and tree shaking; React is external. In Next.js, server pages may render the package's client component boundaries. Call hooks/theme factories in client modules. See [component API documentation](docs/components.md), [architecture](docs/architecture.md), and [migration](docs/migration.md).
 
-Full editors, persistence, authentication, backend access, permissions, routing, imports and document workflows remain in Fieldnotes. [The grounded inventory](docs/component-inventory.md) records what was extracted and what is deliberately deferred.
+Editor engines, persistence, authentication, backend access, permissions, routing, imports and document workflows remain consumer responsibilities. [The grounded inventory](docs/component-inventory.md) records what was extracted and what is deliberately deferred.
 
 ## Examples and roadmap
 
@@ -86,3 +88,5 @@ The consumer tests cover Vite with and without Tailwind, Next.js App Router SSR/
 GitHub Actions verifies the package and prepares static docs. Release/version workflows are separate; publication is manual, guarded and intended to use npm OIDC. See [publishing](docs/publishing.md) for external setup and the exact release lock. No live docs URL or npm publication is implied by workflow configuration.
 
 MIT licensed; see [LICENSE](LICENSE) and [dependency notices](THIRD_PARTY_NOTICES.md). [Security policy](SECURITY.md), [code of conduct](CODE_OF_CONDUCT.md), and [contribution guide](CONTRIBUTING.md) apply to this public project.
+
+The unreleased workspace components have individual playgrounds under Storybook Patterns. Packed Vite examples include `/workspace.html`, `/settings.html`, and `/collections.html`; Next examples include `/library` and `/settings`. These are library examples, not a Fieldnotes app migration. Resizing and movement remain under Storybook Prototypes and are not public package APIs. See the [component contracts](docs/components.md) and [collection rendering decision](docs/decisions/resource-collection-rendering.md).

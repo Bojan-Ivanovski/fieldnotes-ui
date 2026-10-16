@@ -1,4 +1,6 @@
-# Migrating Fieldnotes to fieldnotes-ui
+# Adopting fieldnotes-ui in consumer applications
+
+Fieldnotes app migration is not planned. The historical source mappings below illustrate how a consumer can adopt the library incrementally; they do not schedule changes to that application.
 
 The original Fieldnotes application was audited at HEAD 218bcc0 plus its existing uncommitted hosted/discovery work. It remains unchanged. The library is independent and package consumers were tested before recommending replacements. Do not delete old implementations until the corresponding application flow passes its own regression tests.
 
