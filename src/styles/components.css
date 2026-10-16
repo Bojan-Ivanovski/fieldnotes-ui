@@ -160,3 +160,57 @@
 .fn-button:active:not(:disabled) {
   transform: translateY(1px);
 }
+.fn-input {
+  @apply block w-full;
+  min-width: 0;
+  box-sizing: border-box;
+  border: 1px solid var(--fn-input);
+  border-radius: var(--fn-radius-sm);
+  background: var(--fn-input-background);
+  color: var(--fn-foreground);
+  padding: 11px 12px;
+  margin: 0;
+}
+.fn-input::placeholder {
+  color: var(--fn-muted-foreground);
+  opacity: 1;
+}
+.fn-input[aria-invalid='true'] {
+  border-color: var(--fn-destructive);
+}
+.fn-textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+.fn-check {
+  accent-color: var(--fn-primary);
+  width: 16px;
+  height: 16px;
+  margin: 0 8px 0 0;
+  vertical-align: middle;
+}
+.fn-field {
+  @apply grid;
+  gap: var(--fn-space-2);
+}
+.fn-label {
+  @apply block;
+  font-family: var(--fn-font-sans);
+  font-size: var(--fn-text-sm);
+  font-weight: 650;
+  color: var(--fn-secondary-foreground);
+}
+.fn-description,
+.fn-field-error {
+  margin: 0;
+  font-family: var(--fn-font-sans);
+  font-size: var(--fn-text-sm);
+  line-height: 1.7;
+  color: var(--fn-muted-foreground);
+}
+.fn-field-error {
+  background: var(--fn-destructive);
+  color: var(--fn-destructive-foreground);
+  border-radius: var(--fn-radius-sm);
+  padding: 4px 8px;
+}
