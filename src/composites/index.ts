@@ -6,3 +6,5 @@ export { ConfirmDialog } from '../components/composites/confirm-dialog.js';
 export type { ConfirmDialogProps } from '../components/composites/confirm-dialog.js';
 export { ThemeSelector } from '../components/composites/theme-selector.js';
 export type { ThemeSelectorProps } from '../components/composites/theme-selector.js';
+export { ResourceCard } from '../components/composites/resource-card.js';
+export type { ResourceCardProps } from '../components/composites/resource-card.js';

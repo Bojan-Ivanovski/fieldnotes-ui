@@ -41,6 +41,7 @@ export default defineConfig({
         index: resolve(import.meta.dirname, 'index.html'),
         minimal: resolve(import.meta.dirname, 'minimal.html'),
         milestone: resolve(import.meta.dirname, 'milestone.html'),
+        library: resolve(import.meta.dirname, 'library.html'),
       },
       output: { manualChunks: undefined },
     },
