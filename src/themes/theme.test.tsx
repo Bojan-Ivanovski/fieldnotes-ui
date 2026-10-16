@@ -1,3 +1,4 @@
+import { createRef } from 'react';
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderToString } from 'react-dom/server';
@@ -175,3 +176,16 @@ for (const preset of builtInThemes)
       ).toBeGreaterThanOrEqual(3);
     }
   });
+
+it('forwards the scope ref while retaining theme portal targeting', () => {
+  const ref = createRef<HTMLDivElement>();
+  render(
+    <ThemeProvider ref={ref} defaultTheme="ocean">
+      <p>Scoped content</p>
+    </ThemeProvider>,
+  );
+  expect(ref.current).toBe(
+    screen.getByText('Scoped content').closest('[data-fn-theme]'),
+  );
+  expect(ref.current).toHaveAttribute('data-fn-theme', 'ocean');
+});

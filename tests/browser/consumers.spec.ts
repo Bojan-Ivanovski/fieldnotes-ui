@@ -159,6 +159,9 @@ test('custom themes, reduced motion, CSS isolation and Tailwind consumer', async
       .evaluate((node) => getComputedStyle(node).borderTopStyle),
   ).toBe('outset');
   await page.goto('http://127.0.0.1:4176');
+  await expect(
+    page.getByRole('button', { name: 'primary', exact: true }),
+  ).toHaveCSS('border-radius', '0px');
   await page.getByLabel('Theme', { exact: true }).selectOption('ocean');
   await expect(
     page.getByRole('button', { name: 'primary', exact: true }),

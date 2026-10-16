@@ -130,7 +130,11 @@ function App() {
                   'destructive',
                 ] as const
               ).map((variant) => (
-                <Button variant={variant} key={variant}>
+                <Button
+                  variant={variant}
+                  key={variant}
+                  className={variant === 'primary' ? 'rounded-none' : undefined}
+                >
                   {variant}
                 </Button>
               ))}

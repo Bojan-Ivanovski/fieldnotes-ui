@@ -1,11 +1,12 @@
 import {
   createContext,
   useContext,
+  useCallback,
   useEffect,
   useMemo,
   useState,
   type CSSProperties,
-  type HTMLAttributes,
+  type ComponentPropsWithRef,
   type ReactNode,
 } from 'react';
 import { builtInThemes } from './presets.js';
@@ -20,7 +21,7 @@ interface ThemeContextValue {
 const emptyThemes: readonly ThemeDefinition[] = [];
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 export interface ThemeProviderProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
+  ComponentPropsWithRef<'div'>,
   'onChange'
 > {
   children: ReactNode;
@@ -41,11 +42,20 @@ export function ThemeProvider({
   systemFallback = 'fieldnotes-light',
   className,
   style,
+  ref,
   ...props
 }: ThemeProviderProps) {
   const [choice, setChoice] = useState(defaultTheme);
   const [system, setSystem] = useState<string>(systemFallback);
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
+  const captureContainer = useCallback(
+    (node: HTMLDivElement | null) => {
+      setContainer(node);
+      if (typeof ref === 'function') return ref(node);
+      if (ref) ref.current = node;
+    },
+    [ref],
+  );
   const themes = useMemo(() => {
     const values = [...builtInThemes, ...custom];
     if (new Set(values.map((value) => value.name)).size !== values.length)
@@ -102,7 +112,7 @@ export function ThemeProvider({
     >
       <div
         {...props}
-        ref={setContainer}
+        ref={captureContainer}
         data-fn-theme={resolvedTheme.name}
         className={['fn-theme', className].filter(Boolean).join(' ')}
         style={
